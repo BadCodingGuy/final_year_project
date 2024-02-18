@@ -1,6 +1,6 @@
 # final_year_project
 
-A web app to help comuter science teachers use formative assessment in the classroom.
+A web app to help computer science teachers use formative assessment in the classroom.
 
 ## Getting Started
 
