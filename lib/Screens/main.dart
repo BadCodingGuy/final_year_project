@@ -1,3 +1,4 @@
+import 'package:final_year_project/Screens/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,23 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Byte Assess',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          leading: Image.asset('assets/logo.png'),
-          centerTitle: true,
-          title: const Text("Byte Assess"),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.settings, size: 30.0),
-              onPressed: () {
-                // Add functionality for settings button
-              },
-            ),
-          ],
-        ),
-        body: Center(
-          child: Text('Hello World'),
-        ),
+      home: Wrapper(
       ),
     );
   }
