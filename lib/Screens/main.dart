@@ -1,7 +1,12 @@
 import 'package:final_year_project/Screens/wrapper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Models/user.dart';
+import '../Services/auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,10 +29,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Byte Assess',
-      debugShowCheckedModeBanner: false,
-      home: Wrapper(
+    return StreamProvider.value(
+      catchError: (_, __) => null,
+      value: AuthService().user,
+      initialData: null,
+      child: MaterialApp(
+        home: Wrapper(
+        ),
       ),
     );
   }
