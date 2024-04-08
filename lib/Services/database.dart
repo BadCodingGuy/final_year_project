@@ -9,7 +9,7 @@ class DatabaseService {
 
   // Collection reference
   final CollectionReference brewCollection =
-  FirebaseFirestore.instance.collection('brews');
+  FirebaseFirestore.instance.collection('Teachers');
 
   Future<void> updateUserData(String sugars, String name, int strength) async {
     try {
