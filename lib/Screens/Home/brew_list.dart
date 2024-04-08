@@ -17,7 +17,7 @@ class BrewList extends StatefulWidget {
 class _BrewListState extends State<BrewList> {
   @override
   Widget build(BuildContext context) {
-    final brews = Provider.of<List<Brew>?>(context);
+    final brews = Provider.of<List<Brew>?>(context) ?? [];
 
     if (brews == null || brews.isEmpty) {
       // Return a placeholder or an empty widget when brews is null or empty
