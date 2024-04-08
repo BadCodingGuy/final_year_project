@@ -1,16 +1,18 @@
+import 'package:final_year_project/Services/teacher_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../Models/user.dart';
-import 'database.dart';
+import '../Models/student_user.dart';
+import '../Models/teacher_user.dart';
+import 'student_database.dart';
 
-class AuthService {
+class StudentAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  MyUser? _userfromFirebase(User user) {
-    return user != null ? MyUser(uid: user.uid) : null;
+  StudentMyUser? _userfromFirebase(User user) {
+    return user != null ? StudentMyUser(uid: user.uid) : null;
   }
 
-  Stream<MyUser?> get user {
+  Stream<StudentMyUser?> get user {
     return _auth.authStateChanges().map((User? user) => _userfromFirebase(user!));
   }
 
@@ -31,7 +33,7 @@ class AuthService {
       User? user = result.user;
 
       // Pass the UID to updateUserData method
-      await DatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
+      await StudentDatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
 
       return _userfromFirebase(user);
     } catch(e) {

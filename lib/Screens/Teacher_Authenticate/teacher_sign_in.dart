@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../Services/auth.dart';
+import '../../Services/student_auth.dart';
+import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 
-class SignIn extends StatefulWidget {
+class TeacherSignIn extends StatefulWidget {
   final Function toggleView;
-  const SignIn({super.key, required this.toggleView});
+  const TeacherSignIn({super.key, required this.toggleView});
   @override
-  State<SignIn> createState() => _SignInState();
+  State<TeacherSignIn> createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
+class _SignInState extends State<TeacherSignIn> {
+  final TeacherAuthService _auth = TeacherAuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   //text field state

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Models/user.dart';
-import '../../Services/database.dart';
+import '../../Models/student_user.dart';
+import '../../Models/teacher_user.dart';
+import '../../Services/student_database.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 
@@ -9,10 +10,10 @@ class SettingsForm extends StatefulWidget {
   const SettingsForm({Key? key}) : super(key: key);
 
   @override
-  State<SettingsForm> createState() => _SettingsFormState();
+  State<SettingsForm> createState() => Student_SettingsFormState();
 }
 
-class _SettingsFormState extends State<SettingsForm> {
+class Student_SettingsFormState extends State<SettingsForm> {
   final _formKey = GlobalKey<FormState>();
   final List<String> sugars = ['0', '1', '2', '3', '4'];
   // Form values
@@ -22,13 +23,13 @@ class _SettingsFormState extends State<SettingsForm> {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<MyUser?>(context);
+    final user = Provider.of<StudentMyUser?>(context);
 
-    return StreamBuilder<UserData>(
-      stream: DatabaseService(uid: user?.uid ?? '').userData,
+    return StreamBuilder<StudentUserData>(
+      stream: StudentDatabaseService(uid: user?.uid ?? '').userData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          UserData? userData = snapshot.data;
+          StudentUserData? userData = snapshot.data;
           return Form(
             key: _formKey,
             child: Column(
@@ -82,7 +83,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   ),
                   onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                      await DatabaseService(uid: user?.uid ?? '').updateUserData(
+                      await StudentDatabaseService(uid: user?.uid ?? '').updateUserData(
                         _currentSugars ?? userData?.sugars ?? '',
                         _currentName ?? userData?.name ?? '',
                         _currentStrength ?? userData?.strength ?? 100,

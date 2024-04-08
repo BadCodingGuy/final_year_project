@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import '../../Services/auth.dart';
+import '../../Services/student_auth.dart';
+import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 
 
-class Register extends StatefulWidget {
+class StudentRegister extends StatefulWidget {
   final Function toggleView;
-  const Register({super.key, required this.toggleView});
+  const StudentRegister({super.key, required this.toggleView});
   @override
-  State<Register> createState() => _RegisterState();
+  State<StudentRegister> createState() => _RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterState extends State<StudentRegister> {
   //text field state
-  final AuthService _auth = AuthService();
+  final StudentAuthService _auth = StudentAuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   String email = '';
@@ -26,7 +27,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Teacher registration'),
+        title: Text('Student registration'),
         actions: <Widget>[
           ElevatedButton.icon(
               icon: Icon(Icons.person),

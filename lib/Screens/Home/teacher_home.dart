@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_year_project/Screens/Home/settings_form.dart';
+import 'package:final_year_project/Screens/Home/teacher_settings_form.dart';
 import 'package:flutter/material.dart';
 
 import '../../Models/brew.dart';
-import '../../Services/auth.dart';
-import 'package:final_year_project/Services/auth.dart';
+import '../../Services/student_auth.dart';
+import '../../Services/teacher_auth.dart';
+import 'package:final_year_project/Services/teacher_auth.dart';
 import 'package:provider/provider.dart';
 
-import '../../Services/database.dart';
+import '../../Services/student_database.dart';
 import 'brew_list.dart';
 
-class Home extends StatelessWidget {
-  final AuthService _auth = AuthService();
+class TeacherHome extends StatelessWidget {
+  final TeacherAuthService _auth = TeacherAuthService();
   @override
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
@@ -24,12 +25,12 @@ class Home extends StatelessWidget {
     }
     return StreamProvider<List<Brew>?>.value(
       initialData: null,
-      value: DatabaseService(uid: "").brews,
+      value: StudentDatabaseService(uid: "").brews,
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
 
-          title: Text('Brew Crew'),
+          title: Text('Teacher Home Page'),
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
           actions: <Widget>[
@@ -47,7 +48,7 @@ class Home extends StatelessWidget {
             ),
       ],
         ),
-        body: BrewList(),
+        body: Container(),
       ),
     );
   }

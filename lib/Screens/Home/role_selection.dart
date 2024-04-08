@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
+import '../student_wrapper.dart';
+import '../teacher_wrapper.dart';
 
 
 class RoleSelector extends StatefulWidget {
@@ -11,11 +11,10 @@ class RoleSelector extends StatefulWidget {
 class _RoleSelectorState extends State<RoleSelector> {
   String selectedUserRole = '';
 
-  String recordUserChoice(String role) {
+  void recordUserChoice(String role) {
     setState(() {
       selectedUserRole = role;
     });
-    return role;
   }
 
   @override
@@ -28,11 +27,23 @@ class _RoleSelectorState extends State<RoleSelector> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ElevatedButton(
-            onPressed: () => recordUserChoice('Teacher'),
+            onPressed: () {
+              recordUserChoice('Teacher');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TeacherWrapper()),
+              );
+            },
             child: Text('Teacher'),
           ),
           ElevatedButton(
-            onPressed: () => recordUserChoice('Student'),
+            onPressed: () {
+              recordUserChoice('Student');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => StudentWrapper()),
+              );
+            },
             child: Text('Student'),
           ),
         ],

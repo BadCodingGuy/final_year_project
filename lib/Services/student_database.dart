@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../Models/brew.dart';
-import '../Models/user.dart';
+import '../Models/student_user.dart';
+import '../Models/teacher_user.dart';
 
-class DatabaseService {
+class StudentDatabaseService {
   final String uid;
-  DatabaseService({required this.uid});
+  StudentDatabaseService({required this.uid});
 
   // Collection reference
   final CollectionReference brewCollection =
-  FirebaseFirestore.instance.collection('Teachers');
+  FirebaseFirestore.instance.collection('Student');
 
   Future<void> updateUserData(String sugars, String name, int strength) async {
     try {
@@ -35,8 +36,8 @@ class DatabaseService {
   }
 
   // User data from snapshot
-  UserData userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
+  StudentUserData userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return StudentUserData(
       uid: uid,
       name: snapshot.get('name') ?? '',
       sugars: snapshot.get('sugars') ?? '0',
@@ -50,7 +51,7 @@ class DatabaseService {
   }
 
   // Get user document stream
-  Stream<UserData> get userData {
+  Stream<StudentUserData> get userData {
     return brewCollection.doc(uid).snapshots().map(userDataFromSnapshot);
   }
 }

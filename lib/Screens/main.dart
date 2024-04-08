@@ -1,12 +1,13 @@
-import 'package:final_year_project/Screens/wrapper.dart';
+import 'package:final_year_project/Screens/teacher_wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Models/user.dart';
-import '../Services/auth.dart';
+import '../Models/teacher_user.dart';
+import '../Services/teacher_auth.dart';
+import 'Home/role_selection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,10 +32,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider.value(
       catchError: (_, __) => null,
-      value: AuthService().user,
+      value: TeacherAuthService().user,
       initialData: null,
       child: MaterialApp(
-        home: Wrapper(
+        home: RoleSelector(
         ),
       ),
     );
