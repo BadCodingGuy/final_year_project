@@ -39,8 +39,6 @@ class TeacherDatabaseService {
     return TeacherUserData(
       uid: uid,
       name: snapshot.get('name') ?? '',
-      sugars: snapshot.get('sugars') ?? '0',
-      strength: snapshot.get('strength') ?? 0,
     );
   }
 

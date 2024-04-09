@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../Models/brew.dart';
 import '../Models/student_user.dart';
 import '../Models/teacher_user.dart';
@@ -8,19 +7,59 @@ class StudentDatabaseService {
   final String uid;
   StudentDatabaseService({required this.uid});
 
-  // Collection reference
   final CollectionReference brewCollection =
   FirebaseFirestore.instance.collection('Student');
 
-  Future<void> updateUserData(String sugars, String name, int strength) async {
+  Future<void> updateUserData(String name, String email) async {
     try {
       await brewCollection.doc(uid).set({
-        'sugars': sugars,
         'name': name,
-        'strength': strength,
+        'email': email,
       });
     } catch (e) {
       print('Error updating user data: $e');
+    }
+  }
+
+  Future<void> joinClass(String classCode) async {
+    try {
+      // Get the class document with the provided class code
+      final QuerySnapshot classSnapshot = await FirebaseFirestore.instance
+          .collection('classes')
+          .where('classCode', isEqualTo: classCode)
+          .limit(1)
+          .get();
+
+      if (classSnapshot.docs.isNotEmpty) {
+        // Class with the entered code exists
+        // Get the class ID
+        String classId = classSnapshot.docs.first.id;
+
+        // Retrieve student's name from Firestore using UID
+        DocumentSnapshot studentSnapshot = await brewCollection.doc(uid).get();
+        String studentName = studentSnapshot.get('name');
+
+        // Update student's data to include the class they joined
+        await brewCollection.doc(uid).update({
+          'classId': classId,
+        });
+
+        // Store the student's name within the class document
+        await FirebaseFirestore.instance
+            .collection('classes')
+            .doc(classId)
+            .collection('students')
+            .doc(uid)
+            .set({
+          'name': studentName,
+        });
+      } else {
+        // Class with the entered code does not exist
+        throw Exception('Class with code $classCode does not exist!');
+      }
+    } catch (error) {
+      print('Error joining class: $error');
+      throw error;
     }
   }
 
@@ -40,8 +79,6 @@ class StudentDatabaseService {
     return StudentUserData(
       uid: uid,
       name: snapshot.get('name') ?? '',
-      sugars: snapshot.get('sugars') ?? '0',
-      strength: snapshot.get('strength') ?? 0,
     );
   }
 

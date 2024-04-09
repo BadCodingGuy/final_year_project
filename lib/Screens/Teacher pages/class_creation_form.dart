@@ -18,12 +18,21 @@ class _TeacherClassCreationFormState extends State<TeacherClassCreationForm> {
     try {
       String teacherId = _auth.getCurrentUser()?.uid ?? '';
       int classCode = DateTime.now().millisecondsSinceEpoch % 10000000;
-      await _firestore.collection('classes').add({
+      // Initialize an empty list of students
+      List<String> students = [];
+
+      // Add the class document to Firestore with the students field initialized as an empty list
+      DocumentReference classRef = await _firestore.collection('classes').add({
         'className': _classNameController.text,
         'classDescription': _classDescriptionController.text,
         'classCode': classCode.toString(),
         'teacherId': teacherId,
+        'students': students, // Initialize the students field as an empty list
       });
+
+      // Get the ID of the newly created class document
+      String classId = classRef.id;
+
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Class created successfully!')),
@@ -35,6 +44,7 @@ class _TeacherClassCreationFormState extends State<TeacherClassCreationForm> {
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

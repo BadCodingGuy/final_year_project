@@ -33,7 +33,7 @@ class StudentAuthService {
       User? user = result.user;
 
       // Pass the UID to updateUserData method
-      await StudentDatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
+      await StudentDatabaseService(uid: user!.uid).updateUserData('Student', 'Email');
 
       return _userfromFirebase(user);
     } catch(e) {
