@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_year_project/Services/teacher_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,6 +8,34 @@ import 'student_database.dart';
 
 class StudentAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // Method to get the current user
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
+  Future<Map<String, String>> getCurrentUserInfo() async {
+    Map<String, String> userInfo = {'userId': '', 'studentName': ''};
+    User? user = _auth.currentUser;
+
+    if (user != null) {
+      userInfo['userId'] = user.uid;
+
+      // Here, you would retrieve the student's name from your database
+      // For example, if you're using Firestore:
+      // Replace 'yourStudentCollection' with your actual collection name
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('Student')
+          .doc(user.uid)
+          .get();
+
+      // Assuming your student's name is stored in a field named 'name'
+      if (snapshot.exists) {
+        userInfo['studentName'] = snapshot.get('name');
+      }
+    }
+
+    return userInfo;
+  }
 
   StudentMyUser? _userfromFirebase(User user) {
     return user != null ? StudentMyUser(uid: user.uid) : null;
