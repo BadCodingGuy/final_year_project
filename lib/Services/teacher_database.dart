@@ -11,12 +11,11 @@ class TeacherDatabaseService {
   final CollectionReference brewCollection =
   FirebaseFirestore.instance.collection('Teachers');
 
-  Future<void> updateUserData(String sugars, String name, int strength) async {
+  Future<void> updateUserData(String name, String email) async {
     try {
       await brewCollection.doc(uid).set({
-        'sugars': sugars,
         'name': name,
-        'strength': strength,
+        'email': email,
       });
     } catch (e) {
       print('Error updating user data: $e');

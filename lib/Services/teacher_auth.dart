@@ -29,13 +29,13 @@ class TeacherAuthService {
     }
   }
 
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password, String name) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
-      // Pass the UID to updateUserData method
-      await TeacherDatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
+      // Pass the actual name and email values to updateUserData method
+      await TeacherDatabaseService(uid: user!.uid).updateUserData(name, email);
 
       return _userfromFirebase(user);
     } catch(e) {
@@ -43,6 +43,7 @@ class TeacherAuthService {
       return null;
     }
   }
+
 
   Future signOut() async {
     try {
