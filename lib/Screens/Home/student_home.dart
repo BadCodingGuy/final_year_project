@@ -41,11 +41,6 @@ class StudentHome extends StatelessWidget {
                 await _auth.signOut();
               },
           ),
-            TextButton.icon(
-              icon: Icon(Icons.settings),
-              label: Text('settings'),
-              onPressed: ()  => _showSettingsPanel(),
-            ),
       ],
         ),
         body: Container(),

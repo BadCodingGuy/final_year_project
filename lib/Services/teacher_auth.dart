@@ -6,6 +6,9 @@ import 'student_database.dart';
 
 class TeacherAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  User? getCurrentUser() {
+    return _auth.currentUser;
+  }
 
   TeacherMyUser? _userfromFirebase(User user) {
     return user != null ? TeacherMyUser(uid: user.uid) : null;
