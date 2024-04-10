@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../Services/teacher_auth.dart';
 import '../Teacher pages/class_creation_form.dart';
+import '../Teacher pages/assignment_creation.dart'; // Import the AssignmentCreation page
 
 class TeacherHome extends StatelessWidget {
   final TeacherAuthService _auth = TeacherAuthService();
@@ -56,24 +57,50 @@ class TeacherHome extends StatelessWidget {
               child: Text('No classes found.'),
             );
           }
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (BuildContext context, int index) {
+              DocumentSnapshot document = snapshot.data!.docs[index];
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
               return ListTile(
                 title: Text(data['className']),
                 subtitle: Text(data['classDescription']),
-                trailing: ElevatedButton(
-                  onPressed: () {
-                    String classCode = data['classCode'];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ClassCodeDisplay(classCode)),
-                    );
-                  },
-                  child: Text('Show Class Code'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Navigate to FormativeAssignmentCreation page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FormativeAssignmentCreation()),
+                        );
+                      },
+                      child: Text('Create Formative Assessment'),
+                    ),
+                    SizedBox(width: 8), // Add some spacing between buttons
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your logic to view analytics
+                        // This could be a dialog, navigation, or any other method you prefer
+                      },
+                      child: Text('View Analytics'),
+                    ),
+                    SizedBox(width: 8), // Add some spacing between buttons
+                    ElevatedButton(
+                      onPressed: () {
+                        String classCode = data['classCode'];
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ClassCodeDisplay(classCode)),
+                        );
+                      },
+                      child: Text('Show Class Code'),
+                    ),
+                  ],
                 ),
               );
-            }).toList(),
+            },
           );
         },
       ),
