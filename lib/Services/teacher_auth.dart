@@ -1,16 +1,20 @@
+import 'package:final_year_project/Services/teacher_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../Models/user.dart';
-import 'database.dart';
+import '../Models/teacher_user.dart';
+import 'student_database.dart';
 
-class AuthService {
+class TeacherAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  MyUser? _userfromFirebase(User user) {
-    return user != null ? MyUser(uid: user.uid) : null;
+  User? getCurrentUser() {
+    return _auth.currentUser;
   }
 
-  Stream<MyUser?> get user {
+  TeacherMyUser? _userfromFirebase(User user) {
+    return user != null ? TeacherMyUser(uid: user.uid) : null;
+  }
+
+  Stream<TeacherMyUser?> get user {
     return _auth.authStateChanges().map((User? user) => _userfromFirebase(user!));
   }
 
@@ -25,13 +29,13 @@ class AuthService {
     }
   }
 
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword(String email, String password, String name) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       User? user = result.user;
 
-      // Pass the UID to updateUserData method
-      await DatabaseService(uid: user!.uid).updateUserData('0', 'new crew member', 100);
+      // Pass the actual name and email values to updateUserData method
+      await TeacherDatabaseService(uid: user!.uid).updateUserData(name, email);
 
       return _userfromFirebase(user);
     } catch(e) {
@@ -39,6 +43,7 @@ class AuthService {
       return null;
     }
   }
+
 
   Future signOut() async {
     try {

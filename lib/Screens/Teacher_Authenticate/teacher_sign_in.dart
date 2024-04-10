@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
-import '../../Services/auth.dart';
+
+import '../../Services/student_auth.dart';
+import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 
-
-class Register extends StatefulWidget {
+class TeacherSignIn extends StatefulWidget {
   final Function toggleView;
-  const Register({super.key, required this.toggleView});
+  const TeacherSignIn({super.key, required this.toggleView});
   @override
-  State<Register> createState() => _RegisterState();
+  State<TeacherSignIn> createState() => _SignInState();
 }
 
-class _RegisterState extends State<Register> {
-  //text field state
-  final AuthService _auth = AuthService();
+class _SignInState extends State<TeacherSignIn> {
+  final TeacherAuthService _auth = TeacherAuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
+  //text field state
   String email = '';
   String password = '';
   String error = '';
+
   @override
   Widget build(BuildContext context) {
     return loading? Loading(): Scaffold(
@@ -26,14 +28,14 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Teacher registration'),
+        title: Text('Teacher sign in'),
         actions: <Widget>[
           ElevatedButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Sign In'),
-              onPressed: () {
-                widget.toggleView();
-              }
+            icon: Icon(Icons.person),
+            label: Text('Register'),
+            onPressed: () {
+              widget.toggleView();
+            }
           )
         ],
       ),
@@ -48,8 +50,8 @@ class _RegisterState extends State<Register> {
                   decoration: textInputDecoration.copyWith(hintText: 'Email'),
                   validator: (val) => val!.isEmpty ? "Enter an email" : null,
                   onChanged: (val) {
-                    setState(() => email = val);
-                  }
+                  setState(() => email = val);
+                }
               ),
               SizedBox(height: 20.0),
               TextFormField(
@@ -57,12 +59,12 @@ class _RegisterState extends State<Register> {
                   obscureText: true,
                   validator: (val) => val!.length < 6 ? "Enter a password 6+ chars long" : null,
                   onChanged: (val) {
-                    setState(() => password = val);
-                  }
+                  setState(() => password = val);
+                }
               ),
               SizedBox(height: 20.0),
-              TextButton(
-                child: Text('Register'),
+              ElevatedButton(
+                child: Text('Sign in'),
                 style: ButtonStyle(
                     backgroundColor:
                     MaterialStateProperty.all(Colors.pink[400]),
@@ -71,15 +73,14 @@ class _RegisterState extends State<Register> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()){
                     setState(() => loading = true);
-                    dynamic result = await _auth.registerWithEmailAndPassword(email, password);
+                    dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                     if(result == null){
                       setState(() {
-                        error = 'please supply a valid email';
+                        error = 'Could not sign in with those credentials';
                         loading = false;
                       });
                     }
                   }
-
                 },
               ),
               SizedBox(height: 12),

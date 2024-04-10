@@ -1,22 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../Models/brew.dart';
-import '../Models/user.dart';
+import '../Models/teacher_user.dart';
 
-class DatabaseService {
+class TeacherDatabaseService {
   final String uid;
-  DatabaseService({required this.uid});
+  TeacherDatabaseService({required this.uid});
 
   // Collection reference
   final CollectionReference brewCollection =
-  FirebaseFirestore.instance.collection('brews');
+  FirebaseFirestore.instance.collection('Teachers');
 
-  Future<void> updateUserData(String sugars, String name, int strength) async {
+  Future<void> updateUserData(String name, String email) async {
     try {
       await brewCollection.doc(uid).set({
-        'sugars': sugars,
         'name': name,
-        'strength': strength,
+        'email': email,
       });
     } catch (e) {
       print('Error updating user data: $e');
@@ -35,12 +34,10 @@ class DatabaseService {
   }
 
   // User data from snapshot
-  UserData userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
+  TeacherUserData userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return TeacherUserData(
       uid: uid,
       name: snapshot.get('name') ?? '',
-      sugars: snapshot.get('sugars') ?? '0',
-      strength: snapshot.get('strength') ?? 0,
     );
   }
 
@@ -50,7 +47,7 @@ class DatabaseService {
   }
 
   // Get user document stream
-  Stream<UserData> get userData {
+  Stream<TeacherUserData> get userData {
     return brewCollection.doc(uid).snapshots().map(userDataFromSnapshot);
   }
 }

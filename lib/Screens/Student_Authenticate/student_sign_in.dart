@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../Services/auth.dart';
+import '../../Services/student_auth.dart';
+import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 
-class SignIn extends StatefulWidget {
+class StudentSignIn extends StatefulWidget {
   final Function toggleView;
-  const SignIn({super.key, required this.toggleView});
+  const StudentSignIn({super.key, required this.toggleView});
   @override
-  State<SignIn> createState() => _SignInState();
+  State<StudentSignIn> createState() => _SignInState();
 }
 
-class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
+class _SignInState extends State<StudentSignIn> {
+  final StudentAuthService _auth = StudentAuthService();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   //text field state
@@ -27,7 +28,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Teacher sign in'),
+        title: Text('Student sign in'),
         actions: <Widget>[
           ElevatedButton.icon(
             icon: Icon(Icons.person),

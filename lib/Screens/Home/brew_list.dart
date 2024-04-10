@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../Models/brew.dart';
 import '../../Shared/loading.dart';
-import '../wrapper.dart';
+import '../teacher_wrapper.dart';
 import 'brew_tile.dart';
 
 class BrewList extends StatefulWidget {
