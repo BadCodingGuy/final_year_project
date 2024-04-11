@@ -99,7 +99,6 @@ class _StudentHomeState extends State<StudentHome> {
     }
   }
 
-
   void _attemptAssignment(dynamic assignment) {
     // Implement action for attempting assignment
     print('Attempting assignment: ${assignment['topic']} - ${assignment['subtopic']}');
@@ -163,8 +162,39 @@ class _StudentHomeState extends State<StudentHome> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            FutureBuilder(
+              future: _auth.getCurrentUserInfo(),
+              builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                if (snapshot.hasError || !snapshot.hasData) {
+                  return Text('Error fetching user data');
+                }
+                String studentName = snapshot.data?['studentName'] ?? 'Unknown';
+                return Row(
+                  children: [
+                    Text(
+                      'Welcome, ',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '$studentName ',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Icon(
+                      Icons.waving_hand_outlined,
+                      color: Colors.purple,
+                      size: 20.0,
+                      semanticLabel: 'Welcome',
+                    ),
+                  ],
+                );
+              },
+            ),
+            SizedBox(height: 20),
             TextField(
               controller: _classCodeController,
               decoration: InputDecoration(
