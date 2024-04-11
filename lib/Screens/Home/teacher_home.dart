@@ -70,14 +70,17 @@ class TeacherHome extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Navigate to FormativeAssignmentCreation page
+                        String classCode = data['classCode']; // Retrieve class code from data
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => FormativeAssignmentCreation()),
+                          MaterialPageRoute(
+                            builder: (context) => FormativeAssignmentCreation(classCode: classCode),
+                          ),
                         );
                       },
                       child: Text('Create Formative Assessment'),
                     ),
+
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {

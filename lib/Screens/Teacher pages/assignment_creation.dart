@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../Services/countdown_timer.dart';
+import '../../Services/topics_database.dart';
 
 class FormativeAssignmentCreation extends StatefulWidget {
-  const FormativeAssignmentCreation({Key? key});
+  final String classCode; // Add class code as a parameter
+
+  const FormativeAssignmentCreation({Key? key, required this.classCode})
+      : super(key: key);
 
   @override
   _FormativeAssignmentCreationState createState() =>
@@ -14,42 +22,10 @@ class _FormativeAssignmentCreationState
   int? _selectedSubOption;
   double _timeLimit = 5.0; // Default time limit
 
-  Map<String, List<String>> examBoardOptions = {
-    'Aqa': [
-      'Fundamentals of algorithms',
-      'Searching and sorting algorithms',
-      'Programming',
-      'Programming languages',
-      'Further programming language operations',
-      'Fundamentals of data representation',
-      'Computer systems',
-      'Classifying programming languages and translators',
-      'Systems architecture',
-      'Fundamentals of computer networks',
-      'Network topologies, protocols and layers',
-      'Fundamentals of cyber security',
-      'Ethical, legal and environmental impacts of digital technology'
-    ],
-    'Edexcel': ['Option 4', 'Option 5', 'Option 6'],
-    'Eduqas': ['Option 7', 'Option 8', 'Option 9'],
-    'Ocr': ['Option 10', 'Option 11', 'Option 12'],
-  };
-
-  Map<String, List<String>> subTopics = {
-    'Fundamentals of algorithms': [
-      'Algorithm design', 'Algorithm efficiency', 'Recursive algorithms'
-    ],
-    'Searching and sorting algorithms': [
-      'Linear search', 'Binary search', 'Bubble sort', 'Merge sort', 'Quick sort'
-    ],
-    'Programming languages': [
-      'cats', 'Binary search', 'Bubble sort', 'Merge sort', 'Quick sort'
-    ],
-    // Similarly, add subtopics for other topics
-  };
-
   String _selectedExamBoard = 'Aqa'; // Default exam board
   String _activeExamBoard = 'Aqa'; // Currently active exam board
+  String? _methodOfAssessment; // Variable to store the selected method
+
   Color _getThumbColor(double value) {
     if (value <= 10) {
       return Colors.green;
@@ -70,32 +46,61 @@ class _FormativeAssignmentCreationState
     }
   }
 
+  void _createAssignment(BuildContext context) async {
+    try {
+      if (_selectedOption == null ||
+          _selectedSubOption == null ||
+          _methodOfAssessment == null) {
+        // Check if any required fields are not selected
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Please select all options before creating assignment.'),
+        ));
+        return;
+      }
+
+      // Gather all the necessary data
+      String topic = examBoardOptions[_selectedExamBoard]![_selectedOption! - 1];
+      String subtopic = subTopics[topic]![_selectedSubOption! - 1];
+      double timeLimit = _timeLimit;
+
+      // Create the formative assessment document in Firestore
+      await FirebaseFirestore.instance.collection('formative_assessments').add({
+        'classCode': widget.classCode,
+        'topic': topic,
+        'subtopic': subtopic,
+        'methodOfAssessment': _methodOfAssessment,
+        'timeLimit': timeLimit,
+        // Add additional fields as needed
+      });
+
+      // Show success message
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Assignment created successfully.'),
+      ));
+    } catch (error) {
+      print('Error creating assignment: $error');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Failed to create assignment. Please try again.'),
+      ));
+    }
+  }
+
+  ElevatedButton _methodButton(String method, Color color) {
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          _methodOfAssessment = method; // Update the selected method
+        });
+      },
+      style: ElevatedButton.styleFrom(
+        primary: _methodOfAssessment == method ? color : null, // Change color if selected
+      ),
+      child: Text(method),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<Widget> examBoardButtons =
-    examBoardOptions.keys.map((String examBoard) {
-      return ElevatedButton(
-        onPressed: () {
-          setState(() {
-            _selectedExamBoard = examBoard;
-            _activeExamBoard = examBoard;
-          });
-        },
-        style: ElevatedButton.styleFrom(
-          primary: _activeExamBoard == examBoard ? Colors.green : null,
-        ),
-        child: Text(examBoard),
-      );
-    }).toList();
-
-    List<DropdownMenuItem<String>> examBoardDropdownItems =
-    examBoardOptions.keys.map((String examBoard) {
-      return DropdownMenuItem<String>(
-        value: examBoard,
-        child: Text(examBoard),
-      );
-    }).toList();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Create a new formative assessment'),
@@ -113,9 +118,23 @@ class _FormativeAssignmentCreationState
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10.0),
+                // Exam board selection buttons
                 Wrap(
                   spacing: 10.0,
-                  children: examBoardButtons,
+                  children: examBoardOptions.keys.map((String examBoard) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectedExamBoard = examBoard;
+                          _activeExamBoard = examBoard;
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: _activeExamBoard == examBoard ? Colors.green : null,
+                      ),
+                      child: Text(examBoard),
+                    );
+                  }).toList(),
                 ),
                 SizedBox(height: 20.0),
                 Text(
@@ -123,6 +142,7 @@ class _FormativeAssignmentCreationState
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10.0),
+                // Dropdown for selecting topic
                 DropdownButton<String>(
                   hint: Text('Select a topic'),
                   value: _selectedOption != null ? 'Option ${_selectedOption!}' : null,
@@ -134,36 +154,38 @@ class _FormativeAssignmentCreationState
                       }
                     });
                   },
-                  items: examBoardOptions[_selectedExamBoard]!.map((String option) {
+                  items: examBoardOptions[_selectedExamBoard]!
+                      .map((String option) {
                     int index = examBoardOptions[_selectedExamBoard]!.indexOf(option);
                     return DropdownMenuItem<String>(
                       value: 'Option ${index + 1}',
                       child: Text(option),
                     );
-                  }).toList(),
+                  })
+                      .toList(),
                 ),
-
-
                 SizedBox(height: 10.0),
+                // Dropdown for selecting subtopic
                 if (_selectedOption != null &&
-                    subTopics.containsKey(examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]))
+                    subTopics.containsKey(
+                        examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]))
                   DropdownButton<String>(
                     hint: Text('Select a subtopic'),
-                    value: _selectedSubOption != null
-                        ? 'Suboption ${_selectedSubOption!}'
-                        : null,
+                    value: _selectedSubOption != null ? 'Suboption ${_selectedSubOption!}' : null,
                     onChanged: (String? value) {
                       setState(() {
                         _selectedSubOption = int.parse(value!.substring(10));
                       });
                     },
-                    items: subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]]!.map((String suboption) {
+                    items: subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]]!
+                        .map((String suboption) {
                       int index = subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]]!.indexOf(suboption);
                       return DropdownMenuItem<String>(
                         value: 'Suboption ${index + 1}',
                         child: Text(suboption),
                       );
-                    }).toList(),
+                    })
+                        .toList(),
                   ),
                 SizedBox(height: 20.0),
                 Text(
@@ -171,33 +193,15 @@ class _FormativeAssignmentCreationState
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Add functionality for method button 1
-                  },
-                  child: Text('Quiz'),
-                ),
-                SizedBox(height: 10.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Add functionality for method button 2
-                    //b
-                  },
-                  child: Text('Exit ticket'),
-                ),
-                SizedBox(height: 10.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Add functionality for method button 3
-                  },
-                  child: Text('Interactive'),
-                ),
-                SizedBox(height: 10.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Add functionality for method button 4
-                  },
-                  child: Text('Unplugged'),
+                // Method selection buttons
+                Wrap(
+                  spacing: 10.0,
+                  children: [
+                    _methodButton('Quiz', Colors.green),
+                    _methodButton('Exit ticket', Colors.green),
+                    _methodButton('Interactive', Colors.green),
+                    _methodButton('Unplugged', Colors.green),
+                  ],
                 ),
                 SizedBox(height: 20.0),
                 Row(
@@ -208,6 +212,7 @@ class _FormativeAssignmentCreationState
                       style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 10.0),
+                    // Slider for selecting time limit
                     SizedBox(
                       width: 200.0,
                       child: SliderTheme(
@@ -220,7 +225,7 @@ class _FormativeAssignmentCreationState
                           min: 1,
                           max: 20,
                           divisions: 19,
-                          label: _timeLimit.round().toString() + ' minutes',
+                          label: '${_timeLimit.round()} minutes',
                           onChanged: (double value) {
                             setState(() {
                               _timeLimit = value;
@@ -232,11 +237,26 @@ class _FormativeAssignmentCreationState
                   ],
                 ),
                 SizedBox(height: 20.0),
-                ElevatedButton(
-                  onPressed: () {
-                    // Add functionality for create assignment button
-                  },
-                  child: Text('Create Assignment'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => _createAssignment(context), // Create Assignment button
+                      child: Text('Create Assignment'),
+                    ),
+                    SizedBox(width: 10), // Spacer
+                    ElevatedButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CountdownTimerDialog(durationInSeconds: (_timeLimit * 60).toInt());
+                          },
+                        );
+                      },
+                      child: Text('Show Timer'), // Button to show timer
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -247,8 +267,4 @@ class _FormativeAssignmentCreationState
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    home: FormativeAssignmentCreation(),
-  ));
-}
+
