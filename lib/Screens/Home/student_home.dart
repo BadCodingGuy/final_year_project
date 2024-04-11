@@ -5,6 +5,8 @@ import 'package:final_year_project/Services/student_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../Student pages/example_quiz.dart';
+
 class StudentHome extends StatefulWidget {
   @override
   _StudentHomeState createState() => _StudentHomeState();
@@ -100,9 +102,61 @@ class _StudentHomeState extends State<StudentHome> {
   }
 
   void _attemptAssignment(dynamic assignment) {
-    // Implement action for attempting assignment
-    print('Attempting assignment: ${assignment['topic']} - ${assignment['subtopic']}');
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select Difficulty Level'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SimpleDialogOption(
+                onPressed: () {
+                  // Handle easy difficulty
+                  Navigator.pop(context); // Close the dialog
+                  print('Easy difficulty selected');
+                },
+                child: Text('Easy'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  // Handle medium difficulty
+                  Navigator.pop(context); // Close the dialog
+                  print('Medium difficulty selected');
+                  _navigateToQuiz(assignment); // Navigate to the quiz
+                },
+                child: Text('Medium'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  // Handle hard difficulty
+                  Navigator.pop(context); // Close the dialog
+                  print('Hard difficulty selected');
+                },
+                child: Text('Hard'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
+
+  void _navigateToQuiz(dynamic assignment) {
+    // Navigate to the new widget for medium difficulty
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizExample(
+          title: assignment['topic'],
+          imageUrl: 'https://example.com/image.png', // Provide the URL of the image
+          options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+        ),
+      ),
+    );
+  }
+
+
 
   void _viewReport(dynamic assignment) {
     // Implement action for viewing report
@@ -131,7 +185,11 @@ class _StudentHomeState extends State<StudentHome> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Left $className successfully!')),
         );
-        _fetchStudentData(); // Fetch updated data after leaving class
+
+        // Remove the class from the list
+        classes.remove(className);
+
+        setState(() {}); // Update UI to reflect the changes
       } else {
         // Class with the entered name does not exist
         ScaffoldMessenger.of(context).showSnackBar(
@@ -139,6 +197,26 @@ class _StudentHomeState extends State<StudentHome> {
         );
       }
     }
+  }
+
+
+  int _selectedIndex = 0;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Revision',
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    ),
+    Text(
+      'Index 1: Traffic Lights',
+      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -268,6 +346,21 @@ class _StudentHomeState extends State<StudentHome> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Revision',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.traffic),
+            label: 'Traffic Lights',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green,
+        onTap: _onItemTapped,
       ),
     );
   }
