@@ -27,8 +27,6 @@ class TeacherDatabaseService {
     return snapshot.docs.map((doc) {
       return Brew(
         name: doc.get('name') ?? '',
-        strength: doc.get('strength') ?? 0,
-        sugars: doc.get('sugars') ?? '0',
       );
     }).toList();
   }

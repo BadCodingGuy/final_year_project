@@ -63,9 +63,8 @@ class _FormativeAssignmentCreationState
       String subtopic = subTopics[topic]![_selectedSubOption! - 1];
       double timeLimit = _timeLimit;
 
-      // Create the formative assessment document in Firestore
-      await FirebaseFirestore.instance.collection('formative_assessments').add({
-        'classCode': widget.classCode,
+      // Create the formative assessment document in Firestore with the document name as the class code
+      await FirebaseFirestore.instance.collection('formative_assessments').doc(widget.classCode).set({
         'topic': topic,
         'subtopic': subtopic,
         'methodOfAssessment': _methodOfAssessment,
@@ -266,5 +265,3 @@ class _FormativeAssignmentCreationState
     );
   }
 }
-
-
