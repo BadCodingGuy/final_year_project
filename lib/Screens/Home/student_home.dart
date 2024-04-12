@@ -5,6 +5,7 @@ import 'package:final_year_project/Services/student_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../Student pages/example_interactive.dart';
 import '../Student pages/example_quiz.dart';
 
 class StudentHome extends StatefulWidget {
@@ -115,6 +116,7 @@ class _StudentHomeState extends State<StudentHome> {
                   // Handle easy difficulty
                   Navigator.pop(context); // Close the dialog
                   print('Easy difficulty selected');
+                  _navigateToInteractive(assignment);
                 },
                 child: Text('Easy'),
               ),
@@ -148,6 +150,18 @@ class _StudentHomeState extends State<StudentHome> {
       context,
       MaterialPageRoute(
         builder: (context) => QuizExample(
+
+        ),
+      ),
+    );
+  }
+
+  void _navigateToInteractive(dynamic assignment) {
+    // Navigate to the new widget for low difficulty
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ExampleInteractive(
 
         ),
       ),
