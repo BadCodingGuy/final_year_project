@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'analytics.dart';
+import 'quiz_analytics.dart';
 
 class QuizExample extends StatefulWidget {
   @override

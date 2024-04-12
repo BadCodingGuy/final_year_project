@@ -53,18 +53,21 @@ class _FormativeAssignmentCreationState
           _methodOfAssessment == null) {
         // Check if any required fields are not selected
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Please select all options before creating assignment.'),
+          content: Text(
+              'Please select all options before creating assignment.'),
         ));
         return;
       }
 
       // Gather all the necessary data
-      String topic = examBoardOptions[_selectedExamBoard]![_selectedOption! - 1];
+      String topic = examBoardOptions[_selectedExamBoard]![_selectedOption! -
+          1];
       String subtopic = subTopics[topic]![_selectedSubOption! - 1];
       double timeLimit = _timeLimit;
 
       // Create the formative assessment document in Firestore with the document name as the class code
-      await FirebaseFirestore.instance.collection('formative_assessments').doc(widget.classCode).set({
+      await FirebaseFirestore.instance.collection('formative_assessments').doc(
+          widget.classCode).set({
         'topic': topic,
         'subtopic': subtopic,
         'methodOfAssessment': _methodOfAssessment,
@@ -92,7 +95,9 @@ class _FormativeAssignmentCreationState
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: _methodOfAssessment == method ? color : null, // Change color if selected
+        primary: _methodOfAssessment == method
+            ? color
+            : null, // Change color if selected
       ),
       child: Text(method),
     );
@@ -129,7 +134,9 @@ class _FormativeAssignmentCreationState
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: _activeExamBoard == examBoard ? Colors.green : null,
+                        primary: _activeExamBoard == examBoard
+                            ? Colors.green
+                            : null,
                       ),
                       child: Text(examBoard),
                     );
@@ -144,7 +151,9 @@ class _FormativeAssignmentCreationState
                 // Dropdown for selecting topic
                 DropdownButton<String>(
                   hint: Text('Select a topic'),
-                  value: _selectedOption != null ? 'Option ${_selectedOption!}' : null,
+                  value: _selectedOption != null
+                      ? 'Option ${_selectedOption!}'
+                      : null,
                   onChanged: (String? value) {
                     setState(() {
                       if (value != null) {
@@ -155,7 +164,8 @@ class _FormativeAssignmentCreationState
                   },
                   items: examBoardOptions[_selectedExamBoard]!
                       .map((String option) {
-                    int index = examBoardOptions[_selectedExamBoard]!.indexOf(option);
+                    int index = examBoardOptions[_selectedExamBoard]!.indexOf(
+                        option);
                     return DropdownMenuItem<String>(
                       value: 'Option ${index + 1}',
                       child: Text(option),
@@ -167,18 +177,23 @@ class _FormativeAssignmentCreationState
                 // Dropdown for selecting subtopic
                 if (_selectedOption != null &&
                     subTopics.containsKey(
-                        examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]))
+                        examBoardOptions[_selectedExamBoard]![_selectedOption! -
+                            1]))
                   DropdownButton<String>(
                     hint: Text('Select a subtopic'),
-                    value: _selectedSubOption != null ? 'Suboption ${_selectedSubOption!}' : null,
+                    value: _selectedSubOption != null
+                        ? 'Suboption ${_selectedSubOption!}'
+                        : null,
                     onChanged: (String? value) {
                       setState(() {
                         _selectedSubOption = int.parse(value!.substring(10));
                       });
                     },
-                    items: subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]]!
+                    items: subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! -
+                        1]]!
                         .map((String suboption) {
-                      int index = subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! - 1]]!.indexOf(suboption);
+                      int index = subTopics[examBoardOptions[_selectedExamBoard]![_selectedOption! -
+                          1]]!.indexOf(suboption);
                       return DropdownMenuItem<String>(
                         value: 'Suboption ${index + 1}',
                         child: Text(suboption),
@@ -208,7 +223,8 @@ class _FormativeAssignmentCreationState
                   children: [
                     Text(
                       'How long is the time limit?',
-                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(width: 10.0),
                     // Slider for selecting time limit
@@ -240,7 +256,8 @@ class _FormativeAssignmentCreationState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () => _createAssignment(context), // Create Assignment button
+                      onPressed: () => _createAssignment(context),
+                      // Create Assignment button
                       child: Text('Create Assignment'),
                     ),
                     SizedBox(width: 10), // Spacer
@@ -249,7 +266,8 @@ class _FormativeAssignmentCreationState
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return CountdownTimerDialog(durationInSeconds: (_timeLimit * 60).toInt());
+                            return CountdownTimerDialog(
+                                durationInSeconds: (_timeLimit * 60).toInt());
                           },
                         );
                       },
