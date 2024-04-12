@@ -39,6 +39,7 @@ dependencies:
   time_picker_spinner: ^0.0.1
   flutter_timer_countdown: ^1.0.7
   audioplayers: ^4.1.0
+  pie_chart: ^5.4.0
 
 
 
@@ -74,6 +75,11 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/logo.png
+    - assets/quiz_images/question 1.png
+    - assets/quiz_images/question 2.png
+    - assets/quiz_images/question 3.png
+    - assets/quiz_images/question 4.png
+    - assets/quiz_images/question 5.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

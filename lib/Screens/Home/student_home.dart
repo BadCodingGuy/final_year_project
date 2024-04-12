@@ -148,9 +148,7 @@ class _StudentHomeState extends State<StudentHome> {
       context,
       MaterialPageRoute(
         builder: (context) => QuizExample(
-          title: assignment['topic'],
-          imageUrl: 'https://example.com/image.png', // Provide the URL of the image
-          options: ['Option 1', 'Option 2', 'Option 3', 'Option 4'],
+
         ),
       ),
     );
