@@ -322,6 +322,7 @@ class _StudentHomeState extends State<StudentHome> {
                 itemCount: classes.length,
                 itemBuilder: (context, index) {
                   String className = classes[index];
+                  String classId = assignments.keys.elementAt(index); // Get document ID (classId) from assignments map
                   List<dynamic> classAssignments = assignments[className] ?? [];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,6 +332,9 @@ class _StudentHomeState extends State<StudentHome> {
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 8),
+                      ListTile(
+                        title: Text('Document ID: $classId'), // Display document ID
+                      ),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -364,11 +368,18 @@ class _StudentHomeState extends State<StudentHome> {
                       SizedBox(height: 8), // Add some spacing between assignments and "Traffic Lights" button
                       ElevatedButton(
                         onPressed: () {
+                          print('Document ID: $classId'); // Print document ID
+                        },
+                        child: Text('Print Document ID'),
+                      ),
+                      SizedBox(height: 8), // Add some spacing between "Print Document ID" button and "Traffic Lights" button
+                      ElevatedButton(
+                        onPressed: () {
                           // Navigate to TrafficLightsSelection widget for this class
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TrafficLightsSelection(classCode: '8220805'), // You can use the actual class code or ID here
+                              builder: (context) => TrafficLightsSelection(classCode: classId), // Use document ID
                             ),
                           );
                         },

@@ -7,6 +7,7 @@ import '../Student pages/traffic_lights.dart';
 import '../Teacher pages/class_confidence.dart';
 import '../Teacher pages/class_creation_form.dart';
 import '../Teacher pages/assignment_creation.dart';
+import '../Teacher pages/random_name_picker.dart';
 
 class RandomStudentSelection extends StatelessWidget {
   final List<String> students;
@@ -159,21 +160,28 @@ class TeacherHome extends StatelessWidget {
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
-                        // Show RandomStudentSelection widget
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return RandomStudentSelection(students: students);
-                          },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NamePickerWheel(students: students),
+                          ),
                         );
                       },
-                      child: Text('Select Random Student'),
+                      child: Text('Choose Student'),
+                    ),
+                    SizedBox(width: 8), // Add some spacing between buttons
+                    ElevatedButton(
+                      onPressed: () {
+                        print(document.id);  // Print the document name (or id)
+                      },
+                      child: Text('Print Document Name'),
                     ),
                   ],
                 ),
               );
             },
           );
+
         },
       ),
       floatingActionButton: FloatingActionButton(
