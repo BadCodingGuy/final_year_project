@@ -1,5 +1,5 @@
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/teacher_auth.dart';
@@ -8,12 +8,52 @@ import '../Teacher pages/class_confidence.dart';
 import '../Teacher pages/class_creation_form.dart';
 import '../Teacher pages/assignment_creation.dart';
 
+class RandomStudentSelection extends StatelessWidget {
+  final List<String> students;
+
+  RandomStudentSelection({required this.students});
+
+  @override
+  Widget build(BuildContext context) {
+    if (students.isEmpty) {
+      return AlertDialog(
+        title: Text('No students found'),
+        content: Text('There are no students in this class.'),
+        actions: [
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      );
+    }
+
+    Random random = Random();
+    int randomIndex = random.nextInt(students.length);
+    String selectedStudent = students[randomIndex];
+
+    return AlertDialog(
+      title: Text('Randomly Selected Student'),
+      content: Text('Selected Student: $selectedStudent'),
+      actions: [
+        TextButton(
+          child: Text('OK'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+  }
+}
+
 class TeacherHome extends StatelessWidget {
   final TeacherAuthService _auth = TeacherAuthService();
 
   @override
   Widget build(BuildContext context) {
-
     void _openClassCreationForm(BuildContext context) {
       showDialog(
         context: context,
@@ -62,8 +102,11 @@ class TeacherHome extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               DocumentSnapshot document = snapshot.data!.docs[index];
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+              String className = data['className']; // Retrieve class name from data
+              List<String> students = List<String>.from(data['students'] ?? []); // Retrieve students from data
+
               return ListTile(
-                title: Text(data['className']),
+                title: Text(className),
                 subtitle: Text(data['classDescription']),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -84,7 +127,6 @@ class TeacherHome extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         // Add your logic to view analytics
-                        // This could be a dialog, navigation, or any other method you prefer
                       },
                       child: Text('View Analytics'),
                     ),
@@ -108,11 +150,24 @@ class TeacherHome extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ClassConfidenceLevels(classCode: classCode), // Navigate to ClassConfidenceLevels widget
+                            builder: (context) => ClassConfidenceLevels(classCode: classCode),
                           ),
                         );
                       },
                       child: Text('Traffic Lights'),
+                    ),
+                    SizedBox(width: 8), // Add some spacing between buttons
+                    ElevatedButton(
+                      onPressed: () {
+                        // Show RandomStudentSelection widget
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return RandomStudentSelection(students: students);
+                          },
+                        );
+                      },
+                      child: Text('Select Random Student'),
                     ),
                   ],
                 ),
