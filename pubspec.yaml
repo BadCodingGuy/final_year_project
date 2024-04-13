@@ -83,6 +83,11 @@ flutter:
     - assets/quiz_images/question 4.png
     - assets/quiz_images/question 5.png
     - assets/audio/Chicago - Freedom Trail Studio.mp3
+    - assets/unplugged/unplugged 1.png
+    - assets/unplugged/unplugged 2.png
+    - assets/unplugged/unplugged 3.png
+    - assets/unplugged/unplugged 4.png
+    - assets/unplugged/unplugged 5.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

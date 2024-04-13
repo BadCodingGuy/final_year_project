@@ -5,8 +5,10 @@ import 'package:final_year_project/Services/student_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../Student pages/example_exit_ticket.dart';
 import '../Student pages/example_interactive.dart';
 import '../Student pages/example_quiz.dart';
+import '../Student pages/example_unplugged.dart';
 
 class StudentHome extends StatefulWidget {
   @override
@@ -134,8 +136,18 @@ class _StudentHomeState extends State<StudentHome> {
                   // Handle hard difficulty
                   Navigator.pop(context); // Close the dialog
                   print('Hard difficulty selected');
+                  _navigateExitTicket(assignment);
                 },
                 child: Text('Hard'),
+              ),
+              SimpleDialogOption(
+                onPressed: () {
+                  // Handle challenge difficulty
+                  Navigator.pop(context); // Close the dialog
+                  print('Challenge difficulty selected');
+                  _navigateUnplugged(assignment);
+                },
+                child: Text('Challenge'),
               ),
             ],
           ),
@@ -168,6 +180,28 @@ class _StudentHomeState extends State<StudentHome> {
     );
   }
 
+  void _navigateExitTicket(dynamic assignment) {
+    // Navigate to the new widget for low difficulty
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ExampleExitTicket(
+
+        ),
+      ),
+    );
+  }
+  void _navigateUnplugged(dynamic assignment) {
+    // Navigate to the new widget for low difficulty
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ExampleUnplugged(
+
+        ),
+      ),
+    );
+  }
 
 
   void _viewReport(dynamic assignment) {
