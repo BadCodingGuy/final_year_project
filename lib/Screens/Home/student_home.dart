@@ -9,6 +9,7 @@ import '../Student pages/example_exit_ticket.dart';
 import '../Student pages/example_interactive.dart';
 import '../Student pages/example_quiz.dart';
 import '../Student pages/example_unplugged.dart';
+import '../Student pages/revison.dart';
 import '../Student pages/traffic_lights.dart';
 
 class StudentHome extends StatefulWidget {
@@ -266,8 +267,46 @@ class _StudentHomeState extends State<StudentHome> {
               await _auth.signOut();
             },
           ),
+          TextButton(
+            child: Text(
+              'Revision',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
+            ),
+            onPressed: () {
+              // Navigate to the RevisionPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RevisionPage(), // Navigate to your revision page
+                ),
+              );
+            },
+          ),
+          TextButton(
+            child: Text(
+              'Chat',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
+            ),
+            onPressed: () {
+              // Navigate to the RevisionPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RevisionPage(), // Navigate to your revision page
+                ),
+              );
+            },
+          ),
         ],
       ),
+
+
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

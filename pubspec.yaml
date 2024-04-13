@@ -42,6 +42,8 @@ dependencies:
   pie_chart: ^5.4.0
   flutter_fortune_wheel: ^1.3.1
   confetti: ^0.7.0
+  web_browser: ^0.7.4
+  url_launcher: ^6.0.0
 
 
 
@@ -90,6 +92,10 @@ flutter:
     - assets/unplugged/unplugged 3.png
     - assets/unplugged/unplugged 4.png
     - assets/unplugged/unplugged 5.png
+    - assets/ada.png
+    - assets/bitesize.png
+    - assets/Craig-n-Dave.png
+    - assets/revision.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
