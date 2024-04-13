@@ -192,6 +192,7 @@ class _StudentHomeState extends State<StudentHome> {
       ),
     );
   }
+
   void _navigateUnplugged(dynamic assignment) {
     // Navigate to the new widget for low difficulty
     Navigator.push(
@@ -203,7 +204,6 @@ class _StudentHomeState extends State<StudentHome> {
       ),
     );
   }
-
 
   void _viewReport(dynamic assignment) {
     // Implement action for viewing report
@@ -246,35 +246,9 @@ class _StudentHomeState extends State<StudentHome> {
     }
   }
 
-
   int _selectedIndex = 0;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Revision',
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    ),
-    TrafficLightsSelection(classCode: '4833805'),
-  ];
 
-
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-
-      // If "Traffic Lights" is selected, navigate to TrafficLightsSelection widget
-      if (_selectedIndex == 1) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => TrafficLightsSelection(classCode: '8220805'),
-          ),
-        );
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -387,6 +361,22 @@ class _StudentHomeState extends State<StudentHome> {
                           );
                         },
                       ),
+                      SizedBox(height: 8), // Add some spacing between assignments and "Traffic Lights" button
+                      ElevatedButton(
+                        onPressed: () {
+                          // Navigate to TrafficLightsSelection widget for this class
+                          String classCode = assignments[className]?.first['classCode'] ?? ''; // Get classCode from the first assignment of the selected class
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TrafficLightsSelection(classCode: classCode),
+                            ),
+                          );
+                        },
+                        child: Text('Traffic Lights'),
+                      ),
+
+
                       ButtonBar(
                         children: [
                           ElevatedButton(
@@ -404,21 +394,7 @@ class _StudentHomeState extends State<StudentHome> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Revision',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.traffic),
-            label: 'Traffic Lights',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.green,
-        onTap: _onItemTapped,
-      ),
+
     );
   }
 }
