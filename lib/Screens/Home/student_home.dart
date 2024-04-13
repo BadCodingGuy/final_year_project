@@ -5,6 +5,7 @@ import 'package:final_year_project/Services/student_database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
+import '../Student pages/chat.dart';
 import '../Student pages/example_exit_ticket.dart';
 import '../Student pages/example_interactive.dart';
 import '../Student pages/example_quiz.dart';
@@ -294,15 +295,15 @@ class _StudentHomeState extends State<StudentHome> {
               ),
             ),
             onPressed: () {
-              // Navigate to the RevisionPage
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RevisionPage(), // Navigate to your revision page
+                  builder: (context) => ChatPage(chatId: 'class chat'), // Replace with actual chatId
                 ),
               );
             },
           ),
+
         ],
       ),
 
