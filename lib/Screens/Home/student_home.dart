@@ -365,18 +365,15 @@ class _StudentHomeState extends State<StudentHome> {
                       ElevatedButton(
                         onPressed: () {
                           // Navigate to TrafficLightsSelection widget for this class
-                          String classCode = assignments[className]?.first['classCode'] ?? ''; // Get classCode from the first assignment of the selected class
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => TrafficLightsSelection(classCode: classCode),
+                              builder: (context) => TrafficLightsSelection(classCode: '8220805'), // You can use the actual class code or ID here
                             ),
                           );
                         },
                         child: Text('Traffic Lights'),
                       ),
-
-
                       ButtonBar(
                         children: [
                           ElevatedButton(
