@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_year_project/Screens/Home/student_settings_form.dart';
-import 'package:final_year_project/Screens/Home/teacher_settings_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/teacher_auth.dart';
+import '../Student pages/traffic_lights.dart';
+import '../Teacher pages/class_confidence.dart';
 import '../Teacher pages/class_creation_form.dart';
-import '../Teacher pages/assignment_creation.dart'; // Import the AssignmentCreation page
+import '../Teacher pages/assignment_creation.dart';
 
 class TeacherHome extends StatelessWidget {
   final TeacherAuthService _auth = TeacherAuthService();
@@ -80,7 +80,6 @@ class TeacherHome extends StatelessWidget {
                       },
                       child: Text('Create Formative Assessment'),
                     ),
-
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
@@ -92,13 +91,28 @@ class TeacherHome extends StatelessWidget {
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
-                        String classCode = data['classCode'];
+                        String classCode = data['classCode']; // Retrieve class code from data
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ClassCodeDisplay(classCode)),
+                          MaterialPageRoute(
+                            builder: (context) => ClassCodeDisplay(classCode),
+                          ),
                         );
                       },
                       child: Text('Show Class Code'),
+                    ),
+                    SizedBox(width: 8), // Add some spacing between buttons
+                    ElevatedButton(
+                      onPressed: () {
+                        String classCode = data['classCode']; // Retrieve class code from data
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ClassConfidenceLevels(classCode: classCode), // Navigate to ClassConfidenceLevels widget
+                          ),
+                        );
+                      },
+                      child: Text('Traffic Lights'),
                     ),
                   ],
                 ),

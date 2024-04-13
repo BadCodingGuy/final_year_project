@@ -9,6 +9,7 @@ import '../Student pages/example_exit_ticket.dart';
 import '../Student pages/example_interactive.dart';
 import '../Student pages/example_quiz.dart';
 import '../Student pages/example_unplugged.dart';
+import '../Student pages/traffic_lights.dart';
 
 class StudentHome extends StatefulWidget {
   @override
@@ -248,20 +249,30 @@ class _StudentHomeState extends State<StudentHome> {
 
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Revision',
       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     ),
-    Text(
-      'Index 1: Traffic Lights',
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    ),
+    TrafficLightsSelection(classCode: '4833805'),
   ];
+
+
+
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      // If "Traffic Lights" is selected, navigate to TrafficLightsSelection widget
+      if (_selectedIndex == 1) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TrafficLightsSelection(classCode: '8220805'),
+          ),
+        );
+      }
     });
   }
 
