@@ -23,8 +23,8 @@ class RevisionPage extends StatelessWidget {
               },
               child: Image.asset(
                 'assets/Craig-n-Dave.png',
-                width: 100,
-                height: 100,
+                width: 80, // Reduced width
+                height: 80, // Reduced height
               ),
             ),
             InkWell(
@@ -33,8 +33,8 @@ class RevisionPage extends StatelessWidget {
               },
               child: Image.asset(
                 'assets/bitesize.png',
-                width: 100,
-                height: 100,
+                width: 80, // Reduced width
+                height: 80, // Reduced height
               ),
             ),
             InkWell(
@@ -43,8 +43,8 @@ class RevisionPage extends StatelessWidget {
               },
               child: Image.asset(
                 'assets/ada.png',
-                width: 100,
-                height: 100,
+                width: 80, // Reduced width
+                height: 80, // Reduced height
               ),
             ),
             InkWell(
@@ -53,8 +53,8 @@ class RevisionPage extends StatelessWidget {
               },
               child: Image.asset(
                 'assets/revision.jpg',
-                width: 100,
-                height: 100,
+                width: 80, // Reduced width
+                height: 80, // Reduced height
               ),
             ),
           ],

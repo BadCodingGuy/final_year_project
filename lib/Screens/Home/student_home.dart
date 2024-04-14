@@ -262,14 +262,15 @@ class _StudentHomeState extends State<StudentHome> {
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Logout'),
+            icon: Icon(Icons.person, color: Colors.white), // Icon for Logout
+            label: Text('Logout', style: TextStyle(color: Colors.white)),
             onPressed: () async {
               await _auth.signOut();
             },
           ),
-          TextButton(
-            child: Text(
+          TextButton.icon(
+            icon: Icon(Icons.book, color: Colors.white), // Icon for Revision
+            label: Text(
               'Revision',
               style: TextStyle(
                 color: Colors.white,
@@ -281,13 +282,14 @@ class _StudentHomeState extends State<StudentHome> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RevisionPage(), // Navigate to your revision page
+                  builder: (context) => RevisionPage(),
                 ),
               );
             },
           ),
-          TextButton(
-            child: Text(
+          TextButton.icon(
+            icon: Icon(Icons.chat, color: Colors.white), // Icon for Chat
+            label: Text(
               'Chat',
               style: TextStyle(
                 color: Colors.white,
@@ -303,9 +305,9 @@ class _StudentHomeState extends State<StudentHome> {
               );
             },
           ),
-
         ],
       ),
+
 
 
       body: Padding(
@@ -335,7 +337,7 @@ class _StudentHomeState extends State<StudentHome> {
                     ),
                     Icon(
                       Icons.waving_hand_outlined,
-                      color: Colors.purple,
+                      color: Colors.green[90],
                       size: 20.0,
                       semanticLabel: 'Welcome',
                     ),

@@ -97,29 +97,91 @@ class _RoleSelectorState extends State<Sell> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                recordUserChoice('Teacher');
+            child: InkWell(
+              onTap: () {
+                recordUserChoice('I am a Teacher');
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CallT()),
                 );
               },
-              child: Text('Teacher'),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.black,
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage('assets/teacher.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Teacher',
+                        style: TextStyle(
+                          fontSize: 80,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black.withOpacity(0.3),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
           Expanded(
-            child: ElevatedButton(
-              onPressed: () {
-                recordUserChoice('Student');
+            child: InkWell(
+              onTap: () {
+                recordUserChoice('I am a Student');
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => CallS()),
                 );
               },
-              child: Text('Student'),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.black,
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage('assets/student_home.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Text(
+                        'Student',
+                        style: TextStyle(
+                          fontSize: 80,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black.withOpacity(0.3),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
+
+
         ],
       ),
     );

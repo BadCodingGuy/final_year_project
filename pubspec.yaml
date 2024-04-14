@@ -97,7 +97,11 @@ flutter:
     - assets/bitesize.png
     - assets/Craig-n-Dave.png
     - assets/revision.jpg
-    -
+    - assets/student_home.jpg
+    - assets/teacher.png
+    - assets/classroom.jpg
+    - assets/education_background.png
+    - assets/background.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
