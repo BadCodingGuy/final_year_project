@@ -75,14 +75,23 @@ class TeacherHome extends StatelessWidget {
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('logout'),
+            icon: Icon(
+              Icons.person,
+              color: Colors.white, // Set icon color to white
+            ),
+            label: Text(
+              'logout',
+              style: TextStyle(
+                color: Colors.white, // Set text color to white
+              ),
+            ),
             onPressed: () async {
               await _auth.signOut();
             },
           ),
         ],
       ),
+
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('classes').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
