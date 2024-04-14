@@ -82,12 +82,12 @@ flutter:
   assets:
     - assets/logo.png
     - assets/audio/alarm.mp3
+    - assets/audio/Chicago - Freedom Trail Studio.mp3
     - assets/quiz_images/question 1.png
     - assets/quiz_images/question 2.png
     - assets/quiz_images/question 3.png
     - assets/quiz_images/question 4.png
     - assets/quiz_images/question 5.png
-    - assets/audio/Chicago - Freedom Trail Studio.mp3
     - assets/unplugged/unplugged 1.png
     - assets/unplugged/unplugged 2.png
     - assets/unplugged/unplugged 3.png
@@ -97,6 +97,7 @@ flutter:
     - assets/bitesize.png
     - assets/Craig-n-Dave.png
     - assets/revision.jpg
+    -
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
