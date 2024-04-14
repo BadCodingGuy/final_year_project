@@ -8,6 +8,7 @@ import '../Teacher pages/class_confidence.dart';
 import '../Teacher pages/class_creation_form.dart';
 import '../Teacher pages/assignment_creation.dart';
 import '../Teacher pages/random_name_picker.dart';
+import '../Teacher pages/results.dart';
 
 class RandomStudentSelection extends StatelessWidget {
   final List<String> students;
@@ -53,17 +54,19 @@ class RandomStudentSelection extends StatelessWidget {
 class TeacherHome extends StatelessWidget {
   final TeacherAuthService _auth = TeacherAuthService();
 
+  void _openClassCreationForm(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return TeacherClassCreationForm();
+      },
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
-    void _openClassCreationForm(BuildContext context) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return TeacherClassCreationForm();
-        },
-      );
-    }
-
     return Scaffold(
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
@@ -127,10 +130,18 @@ class TeacherHome extends StatelessWidget {
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
-                        // Add your logic to view analytics
+                        String classCode = data['classCode']; // Retrieve class code from data
+                        print(classCode);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AnalyticsDisplay(classCode: classCode),
+                          ),
+                        );
                       },
                       child: Text('View Analytics'),
                     ),
+
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
@@ -172,16 +183,42 @@ class TeacherHome extends StatelessWidget {
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
-                        print(document.id);  // Print the document name (or id)
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Delete Class'),
+                              content: Text('Are you sure you want to delete $className?'),
+                              actions: [
+                                TextButton(
+                                  child: Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('Delete'),
+                                  onPressed: () async {
+                                    // Delete the class from Firestore
+                                    await FirebaseFirestore.instance.collection('classes').doc(document.id).delete();
+                                    Navigator.pop(context);
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('$className deleted successfully!')),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
-                      child: Text('Print Document Name'),
+                      child: Text('Delete'),
                     ),
                   ],
                 ),
               );
             },
           );
-
         },
       ),
       floatingActionButton: FloatingActionButton(

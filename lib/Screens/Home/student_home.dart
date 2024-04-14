@@ -402,24 +402,26 @@ class _StudentHomeState extends State<StudentHome> {
                           );
                         },
                       ),
-                      SizedBox(height: 8), // Add some spacing between "Print Document ID" button and "Traffic Lights" button
-                      ElevatedButton(
-                        onPressed: () {
-                          // Navigate to TrafficLightsSelection widget for this class
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => TrafficLightsSelection(classCode: classId), // Use document ID
-                            ),
-                          );
-                        },
-                        child: Text('Traffic Lights'),
-                      ),
-                      ButtonBar(
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end, // Align buttons to the end (right side) of the row
                         children: [
                           ElevatedButton(
                             onPressed: () => _leaveClass(context, className),
                             child: Text('Leave Class'),
+                          ),
+                          SizedBox(width: 8), // Adding a small space between the buttons
+                          ElevatedButton(
+                            onPressed: () {
+                              // Navigate to TrafficLightsSelection widget for this class
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrafficLightsSelection(classCode: 'j9'), // Use document ID
+                                ),
+                              );
+                            },
+                            child: Text('Traffic Lights'),
                           ),
                         ],
                       ),
@@ -429,6 +431,7 @@ class _StudentHomeState extends State<StudentHome> {
                 },
               ),
             ),
+
           ],
         ),
       ),
