@@ -115,6 +115,7 @@ class _ExampleInteractiveState extends State<ExampleInteractive> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Parsons Problem'),
       ),
       body: Column(

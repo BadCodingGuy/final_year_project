@@ -107,6 +107,7 @@ class _FormativeAssignmentCreationState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Create a new formative assessment'),
       ),
       body: Center(

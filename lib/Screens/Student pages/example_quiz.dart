@@ -81,6 +81,7 @@ class _QuizExampleState extends State<QuizExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Quiz Example'),
       ),
       body: Column(

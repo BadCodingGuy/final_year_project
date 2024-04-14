@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your App Title',
+      debugShowCheckedModeBanner: false,
+      title: 'Byte Access',
       home: Sell(),
     );
   }
@@ -47,6 +48,7 @@ class CallT extends StatelessWidget {
       value: TeacherAuthService().user,
       initialData: null,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: TeacherWrapper(),
       ),
     );
@@ -63,6 +65,7 @@ class CallS extends StatelessWidget {
       value: StudentAuthService().user,
       initialData: null,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: StudentWrapper(),
       ),
     );
@@ -87,7 +90,8 @@ class _RoleSelectorState extends State<Sell> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Role Selection'),
+        backgroundColor: Colors.lightGreen,
+        title: Text('Welcome to Byte Access - Please select your role'),
       ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,

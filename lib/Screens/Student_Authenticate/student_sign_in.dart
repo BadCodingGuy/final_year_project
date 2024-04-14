@@ -26,7 +26,7 @@ class _SignInState extends State<StudentSignIn> {
     return loading? Loading(): Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         title: Text('Student sign in'),
         actions: <Widget>[
@@ -67,7 +67,7 @@ class _SignInState extends State<StudentSignIn> {
                 child: Text('Sign in'),
                 style: ButtonStyle(
                     backgroundColor:
-                    MaterialStateProperty.all(Colors.pink[400]),
+                    MaterialStateProperty.all(Colors.green),
                     textStyle: MaterialStateProperty.all(
                         TextStyle(color: Colors.white))),
                 onPressed: () async {

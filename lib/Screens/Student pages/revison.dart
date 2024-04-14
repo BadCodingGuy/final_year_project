@@ -6,8 +6,8 @@ class RevisionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Revision Page'),
-        backgroundColor: Colors.brown[400],
         elevation: 0.0,
       ),
       body: Center(

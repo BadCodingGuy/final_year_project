@@ -10,6 +10,7 @@ class ClassConfidenceLevels extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Class Confidence Levels'),
       ),
       body: StreamBuilder(

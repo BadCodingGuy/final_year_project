@@ -22,7 +22,9 @@ class _RoleSelectorState extends State<RoleSelector> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Role Selection'),
+        title: Text('Welcome to Byte Access - Please select your role'),
+        backgroundColor: Colors.lightGreen,
+
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

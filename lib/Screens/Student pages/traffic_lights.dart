@@ -54,6 +54,7 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Traffic Lights'),
       ),
       body: Column(

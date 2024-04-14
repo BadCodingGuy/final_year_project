@@ -5,6 +5,7 @@ class ExampleExitTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Exit Ticket',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -59,6 +60,7 @@ class _ExitTicketScreenState extends State<ExitTicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Exit Ticket - Pseudocode'),
       ),
       body: Padding(

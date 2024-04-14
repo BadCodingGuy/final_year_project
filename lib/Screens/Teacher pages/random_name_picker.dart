@@ -36,6 +36,7 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Name Picker Wheel'),
       ),
       body: Center(

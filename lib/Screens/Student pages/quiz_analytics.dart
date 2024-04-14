@@ -41,6 +41,7 @@ class QuizResultScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Quiz Results'),
       ),
       body: Column(

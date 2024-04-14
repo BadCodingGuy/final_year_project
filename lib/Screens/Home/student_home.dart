@@ -258,7 +258,7 @@ class _StudentHomeState extends State<StudentHome> {
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
         title: Text('Student Home Page'),
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(

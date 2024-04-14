@@ -29,7 +29,7 @@ class _RegisterState extends State<TeacherRegister> {
         : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         title: Text('Teacher registration'),
         actions: <Widget>[
@@ -77,8 +77,8 @@ class _RegisterState extends State<TeacherRegister> {
               TextButton(
                 child: Text('Register'),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.pink[400]),
-                  textStyle: MaterialStateProperty.all(TextStyle(color: Colors.white)),
+                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                  foregroundColor: MaterialStateProperty.all(Colors.white), // Set text color to white
                 ),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {

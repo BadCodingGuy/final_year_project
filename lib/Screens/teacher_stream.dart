@@ -17,6 +17,7 @@ class TeacherStream extends StatelessWidget {
       value: TeacherAuthService().user,
       initialData: null,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: TeacherWrapper(
         ),
       ),

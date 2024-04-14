@@ -4,6 +4,7 @@ import '../../Services/student_auth.dart';
 import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
+import '../Home/role_selection.dart';
 
 class TeacherSignIn extends StatefulWidget {
   final Function toggleView;
@@ -26,19 +27,21 @@ class _SignInState extends State<TeacherSignIn> {
     return loading? Loading(): Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         title: Text('Teacher sign in'),
         actions: <Widget>[
           ElevatedButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Register'),
-            onPressed: () {
-              widget.toggleView();
-            }
-          )
+              icon: Icon(Icons.person),
+              label: Text('Register'),
+              onPressed: () {
+                widget.toggleView();
+              }
+          ),
+      //some space between the buttons
         ],
       ),
+
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
         child: Form(
@@ -67,7 +70,7 @@ class _SignInState extends State<TeacherSignIn> {
                 child: Text('Sign in'),
                 style: ButtonStyle(
                     backgroundColor:
-                    MaterialStateProperty.all(Colors.pink[400]),
+                    MaterialStateProperty.all(Colors.green),
                     textStyle: MaterialStateProperty.all(
                         TextStyle(color: Colors.white))),
                 onPressed: () async {

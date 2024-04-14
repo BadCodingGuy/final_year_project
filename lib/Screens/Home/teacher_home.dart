@@ -71,7 +71,7 @@ class TeacherHome extends StatelessWidget {
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
         title: Text('Teacher Home Page'),
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(
