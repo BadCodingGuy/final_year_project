@@ -120,7 +120,12 @@ class _ExampleInteractiveState extends State<ExampleInteractive> {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Parsons Problem'),
+        title: Text('Parsons Problem',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

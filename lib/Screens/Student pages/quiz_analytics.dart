@@ -81,7 +81,12 @@ class QuizResultScreen extends StatelessWidget {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Quiz Results'),
+        title: Text('Quiz Results',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

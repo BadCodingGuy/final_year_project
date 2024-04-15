@@ -30,7 +30,12 @@ class _RegisterState extends State<TeacherRegister> {
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
         elevation: 0.0,
-        title: Text('Teacher register'),
+        title: Text('Teacher register',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

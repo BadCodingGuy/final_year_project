@@ -58,7 +58,12 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Traffic Lights'),
+        title: Text('Traffic Lights',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

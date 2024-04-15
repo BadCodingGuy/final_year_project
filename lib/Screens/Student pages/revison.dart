@@ -11,7 +11,12 @@ class RevisionPage extends StatelessWidget {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Revision Page'),
+        title: Text('Revision Page',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         elevation: 0.0,
         leading: GestureDetector(
           onTap: () {

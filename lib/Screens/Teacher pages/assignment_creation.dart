@@ -130,7 +130,12 @@ class _FormativeAssignmentCreationState
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Create a new formative assessment'),
+        title: Text('Create a new formative assessment',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

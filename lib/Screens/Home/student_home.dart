@@ -256,9 +256,15 @@ class _StudentHomeState extends State<StudentHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[50],
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        title: Text('Student Home Page'),
+        title: Text(
+          'Student Home Page',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -266,7 +272,7 @@ class _StudentHomeState extends State<StudentHome> {
               MaterialPageRoute(builder: (context) => Sell()),  // Navigate to Sell page
             );
           },
-          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+          child: Image.asset('assets/logo.png', height: 40, width: 40),  // Replace with your logo path
         ),
         backgroundColor: Colors.brown[600],
         elevation: 0.0,

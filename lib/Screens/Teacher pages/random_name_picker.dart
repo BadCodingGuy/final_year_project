@@ -41,7 +41,12 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Name Picker Wheel'),
+        title: Text('Name Picker Wheel',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

@@ -30,7 +30,12 @@ class _SignInState extends State<StudentSignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
         elevation: 0.0,
-        title: Text('Student sign in'),
+        title: Text('Student sign in',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

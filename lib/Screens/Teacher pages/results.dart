@@ -50,7 +50,12 @@ class AnalyticsDisplay extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        title: Text('Analytics'),
+        title: Text('Analytics',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

@@ -95,7 +95,12 @@ class TeacherHome extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        title: Text('Teacher Home Page'),
+        title: Text('Teacher Home Page',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(

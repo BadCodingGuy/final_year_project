@@ -65,7 +65,12 @@ class _ExitTicketScreenState extends State<ExitTicketScreen> {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Exit Ticket - Pseudocode'),
+        title: Text('Exit Ticket - Pseudocode',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
+          ),
+        ),
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
