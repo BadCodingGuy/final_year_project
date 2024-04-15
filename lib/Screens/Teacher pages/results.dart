@@ -47,13 +47,6 @@ class AnalyticsDisplay extends StatelessWidget {
               return ListTile(
                 title: Text(studentName),
                 subtitle: Text('Correct Answers: $correctAnswers out of $totalQuestions'),
-                trailing: ElevatedButton(
-                  onPressed: () {
-                    // Navigate to a detailed view of the quiz results if needed
-                    // For example: Navigator.push(context, MaterialPageRoute(builder: (context) => QuizResultDetail(userResponses: userResponses)));
-                  },
-                  child: Text('View Details'),
-                ),
               );
             },
           );

@@ -20,16 +20,39 @@ class QuizResultScreen extends StatelessWidget {
 
     if (studentName != null) {
       try {
+        // Fetch classCode based on studentName
+        String? classCode = await getClassCodeForStudent(studentName);
+
         await FirebaseFirestore.instance.collection('quiz_results').doc(studentName).set({
           'timestamp': DateTime.now(),
           'correct_answers': correctAnswers,
           'total_questions': totalQuestions,
           'user_responses': userResponses.map((response) => response.toString()).toList(),
+          'classCode': classCode,  // Add classCode to the document
         });
+
         print('Quiz results uploaded successfully for $studentName');
       } catch (error) {
         print('Failed to upload quiz results: $error');
       }
+    }
+  }
+
+  Future<String?> getClassCodeForStudent(String studentName) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('classes')
+          .where('students', arrayContains: studentName)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Assuming the student is in one class only, return the first classCode found
+        return querySnapshot.docs.first['classCode'];
+      }
+      return null;
+    } catch (error) {
+      print('Error getting classCode: $error');
+      return null;
     }
   }
 
