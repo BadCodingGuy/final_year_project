@@ -10,7 +10,7 @@ class RevisionPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Revision Page'),
         elevation: 0.0,
         leading: GestureDetector(

@@ -57,7 +57,7 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Traffic Lights'),
         leading: GestureDetector(
           onTap: () {

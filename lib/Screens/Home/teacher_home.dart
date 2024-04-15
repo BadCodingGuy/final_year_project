@@ -105,7 +105,7 @@ class TeacherHome extends StatelessWidget {
           },
           child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
         ),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         elevation: 0.0,
         actions: <Widget>[
           TextButton.icon(

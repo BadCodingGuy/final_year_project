@@ -84,7 +84,7 @@ class _QuizExampleState extends State<QuizExample> {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Quiz Example'),
         leading: GestureDetector(
           onTap: () {

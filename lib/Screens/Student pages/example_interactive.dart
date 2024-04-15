@@ -119,7 +119,7 @@ class _ExampleInteractiveState extends State<ExampleInteractive> {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Parsons Problem'),
         leading: GestureDetector(
           onTap: () {

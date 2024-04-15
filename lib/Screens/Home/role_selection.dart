@@ -23,7 +23,7 @@ class _RoleSelectorState extends State<RoleSelector> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome to Byte Access - Please select your role'),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
 
       ),
       body: Row(
@@ -38,6 +38,9 @@ class _RoleSelectorState extends State<RoleSelector> {
               );
             },
             child: Text('Teacher'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue[400]), // Change background color
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -48,6 +51,9 @@ class _RoleSelectorState extends State<RoleSelector> {
               );
             },
             child: Text('Student'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue[400]), // Change background color
+            ),
           ),
         ],
       ),

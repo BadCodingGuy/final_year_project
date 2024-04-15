@@ -64,7 +64,7 @@ class _ExitTicketScreenState extends State<ExitTicketScreen> {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Exit Ticket - Pseudocode'),
         leading: GestureDetector(
           onTap: () {

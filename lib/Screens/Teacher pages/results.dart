@@ -60,7 +60,7 @@ class AnalyticsDisplay extends StatelessWidget {
           },
           child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
         ),
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance

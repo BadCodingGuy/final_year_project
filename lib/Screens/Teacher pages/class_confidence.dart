@@ -14,7 +14,7 @@ class ClassConfidenceLevels extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Class Confidence Levels'),
         leading: GestureDetector(
           onTap: () {

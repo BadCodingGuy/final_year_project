@@ -28,7 +28,7 @@ class _SignInState extends State<StudentSignIn> {
         ? Loading()
         : Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         elevation: 0.0,
         title: Text('Student sign in'),
         leading: GestureDetector(

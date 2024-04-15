@@ -23,7 +23,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Chat'),
         leading: GestureDetector(
           onTap: () {

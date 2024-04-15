@@ -91,7 +91,7 @@ class _RoleSelectorState extends State<Sell> {
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Colors.brown[600],
         title: Text('Welcome to Byte Access - Please select your role'),
         // Add your logo to the AppBar
         leading: Image.asset('assets/logo.png', height: 40, width: 40),
