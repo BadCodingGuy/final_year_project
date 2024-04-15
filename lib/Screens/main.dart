@@ -92,6 +92,8 @@ class _RoleSelectorState extends State<Sell> {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Welcome to Byte Access - Please select your role'),
+        // Add your logo to the AppBar
+        leading: Image.asset('assets/logo.png', height: 40, width: 40),
       ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,

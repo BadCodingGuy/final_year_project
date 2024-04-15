@@ -5,6 +5,7 @@ import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 import '../Home/role_selection.dart';
+import '../main.dart';
 
 class TeacherSignIn extends StatefulWidget {
   final Function toggleView;
@@ -30,6 +31,15 @@ class _SignInState extends State<TeacherSignIn> {
         backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         title: Text('Teacher sign in'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Sell()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
         actions: <Widget>[
           ElevatedButton.icon(
             icon: Icon(Icons.person),
@@ -37,9 +47,10 @@ class _SignInState extends State<TeacherSignIn> {
             onPressed: () {
               widget.toggleView();
             },
-          ),
+          )
         ],
       ),
+
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
