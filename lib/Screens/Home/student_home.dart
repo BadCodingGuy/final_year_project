@@ -393,10 +393,6 @@ class _StudentHomeState extends State<StudentHome> {
                                     onPressed: () => _attemptAssignment(assignment),
                                     child: Text('Attempt Assignment'),
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () => _viewReport(assignment),
-                                    child: Text('View Report'),
-                                  ),
                                 ],
                               ),
                               Divider(), // Divider between assignments
