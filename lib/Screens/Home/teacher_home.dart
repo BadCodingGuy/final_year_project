@@ -169,6 +169,9 @@ class TeacherHome extends StatelessWidget {
                         );
                       },
                       child: Text('Create Formative Assessment'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                      ),
                     ),
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
@@ -183,6 +186,9 @@ class TeacherHome extends StatelessWidget {
                         );
                       },
                       child: Text('View Analytics'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                      ),
                     ),
 
                     SizedBox(width: 8), // Add some spacing between buttons
@@ -197,6 +203,9 @@ class TeacherHome extends StatelessWidget {
                         );
                       },
                       child: Text('Show Class Code'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                      ),
                     ),
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
@@ -210,6 +219,9 @@ class TeacherHome extends StatelessWidget {
                         );
                       },
                       child: Text('Traffic Lights'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                      ),
                     ),
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
@@ -222,6 +234,9 @@ class TeacherHome extends StatelessWidget {
                         );
                       },
                       child: Text('Choose Student'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                      ),
                     ),
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
@@ -256,6 +271,9 @@ class TeacherHome extends StatelessWidget {
                         );
                       },
                       child: Text('Delete'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                      ),
                     ),
                   ],
                 ),
@@ -267,6 +285,8 @@ class TeacherHome extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openClassCreationForm(context),
         child: Icon(Icons.add),
+        backgroundColor: Colors.brown[600],
+
       ),
     );
   }

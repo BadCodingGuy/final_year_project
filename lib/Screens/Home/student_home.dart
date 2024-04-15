@@ -367,6 +367,9 @@ class _StudentHomeState extends State<StudentHome> {
             ElevatedButton(
               onPressed: () => _joinClass(context),
               child: Text('Join Class'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+              ),
             ),
             SizedBox(height: 20),
             Expanded(
@@ -402,6 +405,9 @@ class _StudentHomeState extends State<StudentHome> {
                                   ElevatedButton(
                                     onPressed: () => _attemptAssignment(assignment),
                                     child: Text('Attempt Assignment'),
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                                    ),
                                   ),
                                 ],
                               ),
@@ -417,6 +423,9 @@ class _StudentHomeState extends State<StudentHome> {
                           ElevatedButton(
                             onPressed: () => _leaveClass(context, className),
                             child: Text('Leave Class'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
                           ),
                           SizedBox(width: 8), // Adding a small space between the buttons
                           ElevatedButton(
@@ -430,6 +439,9 @@ class _StudentHomeState extends State<StudentHome> {
                               );
                             },
                             child: Text('Traffic Lights'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
                           ),
                         ],
                       ),

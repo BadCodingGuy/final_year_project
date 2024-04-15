@@ -240,6 +240,9 @@ class _ExitTicketScreenState extends State<ExitTicketScreen> {
             ),
             ElevatedButton(
               child: Text('Submit'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+              ),
               onPressed: checkAnswers,
             ),
           ],

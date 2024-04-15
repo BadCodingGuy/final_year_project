@@ -153,6 +153,10 @@ class OptionButton extends StatelessWidget {
         optionText,
         style: TextStyle(fontSize: 18.0),
       ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Set background color to brown[400]
+        side: MaterialStateProperty.all(BorderSide(color: Colors.brown[600]!, width: 2.0)), // Add border
+      ),
     );
   }
 }

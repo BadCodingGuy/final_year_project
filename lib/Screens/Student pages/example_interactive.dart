@@ -159,6 +159,9 @@ class _ExampleInteractiveState extends State<ExampleInteractive> {
           ElevatedButton(
             onPressed: _checkCode,
             child: Text('Check Code'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+            ),
           ),
           SizedBox(height: 20),
         ],
@@ -178,7 +181,8 @@ class _ExampleInteractiveState extends State<ExampleInteractive> {
 
       return Container(
         key: Key(line),
-        color: showHighlight && !isCorrectPosition ? Colors.red : Colors.white,
+        color: showHighlight && !isCorrectPosition ? Colors.red : Colors.brown[400],
+
         child: ListTile(
           title: Text(line),
         ),
