@@ -9,6 +9,7 @@ import '../Teacher pages/class_creation_form.dart';
 import '../Teacher pages/assignment_creation.dart';
 import '../Teacher pages/random_name_picker.dart';
 import '../Teacher pages/results.dart';
+import '../main.dart';
 
 class RandomStudentSelection extends StatelessWidget {
   final List<String> students;
@@ -95,6 +96,15 @@ class TeacherHome extends StatelessWidget {
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
         title: Text('Teacher Home Page'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Sell()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
         backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         actions: <Widget>[

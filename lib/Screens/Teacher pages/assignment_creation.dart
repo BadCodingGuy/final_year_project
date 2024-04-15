@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../Services/countdown_timer.dart';
 import '../../Services/topics_database.dart';
+import '../Home/teacher_home.dart';
+import '../main.dart';
 
 class FormativeAssignmentCreation extends StatefulWidget {
   final String classCode;
@@ -128,6 +130,15 @@ class _FormativeAssignmentCreationState
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Create a new formative assessment'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Stack(
         fit: StackFit.expand,

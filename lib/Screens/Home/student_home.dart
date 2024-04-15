@@ -12,6 +12,7 @@ import '../Student pages/example_quiz.dart';
 import '../Student pages/example_unplugged.dart';
 import '../Student pages/revison.dart';
 import '../Student pages/traffic_lights.dart';
+import '../main.dart';
 
 class StudentHome extends StatefulWidget {
   @override
@@ -258,6 +259,15 @@ class _StudentHomeState extends State<StudentHome> {
       backgroundColor: Colors.brown[50],
       appBar: AppBar(
         title: Text('Student Home Page'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Sell()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
         backgroundColor: Colors.lightGreen,
         elevation: 0.0,
         actions: <Widget>[

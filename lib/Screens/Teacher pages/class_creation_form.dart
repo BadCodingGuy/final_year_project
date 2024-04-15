@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/teacher_auth.dart';
+import '../Home/teacher_home.dart';
+import '../main.dart';
 
 class TeacherClassCreationForm extends StatefulWidget {
   @override
@@ -89,6 +91,15 @@ class ClassCodeDisplay extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Class Code'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Center(
         child: Column(

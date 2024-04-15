@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../Home/student_home.dart';
+import '../main.dart';
+
 
 class ExampleExitTicket extends StatelessWidget {
   @override
@@ -62,6 +65,15 @@ class _ExitTicketScreenState extends State<ExitTicketScreen> {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Exit Ticket - Pseudocode'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),

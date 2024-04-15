@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/student_auth.dart';
+import '../Home/student_home.dart';
+import '../main.dart';
 
 class ChatPage extends StatefulWidget {
   final String chatId;
@@ -22,6 +24,15 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Chat'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Column(
         children: [

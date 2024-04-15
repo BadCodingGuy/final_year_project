@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
+import '../Home/student_home.dart';
+import '../main.dart';
+
 
 class ExampleInteractive extends StatefulWidget {
   @override
@@ -117,6 +120,15 @@ class _ExampleInteractiveState extends State<ExampleInteractive> {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Parsons Problem'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Column(
         children: [

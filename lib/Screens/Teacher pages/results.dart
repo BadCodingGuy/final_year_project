@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+import '../Home/teacher_home.dart';
+import '../main.dart';
+
 class AnalyticsDisplay extends StatelessWidget {
   final String classCode;
 
@@ -47,6 +50,15 @@ class AnalyticsDisplay extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Analytics'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
         backgroundColor: Colors.lightGreen,
       ),
       body: StreamBuilder(

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:confetti/confetti.dart';
 
+import '../Home/teacher_home.dart';
+import '../main.dart';
+
 class NamePickerWheel extends StatefulWidget {
   final List<String> students;
 
@@ -38,6 +41,15 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Name Picker Wheel'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Center(
         child: Stack(

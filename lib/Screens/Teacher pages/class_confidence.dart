@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../Home/teacher_home.dart';
+import '../main.dart';
+
 class ClassConfidenceLevels extends StatelessWidget {
   final String classCode;
 
@@ -12,6 +15,15 @@ class ClassConfidenceLevels extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Class Confidence Levels'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance

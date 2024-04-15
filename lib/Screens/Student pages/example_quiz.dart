@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Home/student_home.dart';
+import '../main.dart';
 import 'quiz_analytics.dart';
 
 class QuizExample extends StatefulWidget {
@@ -83,6 +85,15 @@ class _QuizExampleState extends State<QuizExample> {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Quiz Example'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

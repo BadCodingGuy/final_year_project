@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pie_chart/pie_chart.dart';
+import '../Home/student_home.dart';
+import '../main.dart';
 import 'example_quiz.dart';
 import 'package:final_year_project/Services/student_auth.dart'; // Import student_auth.dart
 
@@ -79,6 +81,15 @@ class QuizResultScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Quiz Results'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => StudentHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
