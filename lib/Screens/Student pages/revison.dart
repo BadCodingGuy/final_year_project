@@ -8,6 +8,7 @@ class RevisionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Revision Page'),

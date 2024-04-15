@@ -16,6 +16,7 @@ class ExampleUnplugged extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Unplugged activity'),

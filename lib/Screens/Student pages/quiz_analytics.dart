@@ -78,6 +78,7 @@ class QuizResultScreen extends StatelessWidget {
     uploadQuizResultsToFirestore(correctAnswers, totalQuestions, userResponses);
 
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Quiz Results'),

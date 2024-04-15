@@ -38,6 +38,7 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Name Picker Wheel'),

@@ -48,6 +48,7 @@ class AnalyticsDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         title: Text('Analytics'),
         leading: GestureDetector(

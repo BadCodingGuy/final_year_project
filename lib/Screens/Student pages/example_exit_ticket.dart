@@ -62,6 +62,7 @@ class _ExitTicketScreenState extends State<ExitTicketScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Exit Ticket - Pseudocode'),

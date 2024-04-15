@@ -93,7 +93,7 @@ class TeacherHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[50],
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         title: Text('Teacher Home Page'),
         leading: GestureDetector(

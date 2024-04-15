@@ -89,6 +89,7 @@ class _RoleSelectorState extends State<Sell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.lightGreen,
         title: Text('Welcome to Byte Access - Please select your role'),
