@@ -41,9 +41,10 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Name Picker Wheel',
+        title: Text(
+          'Name Picker Wheel',
           style: TextStyle(
-            fontFamily: 'Jersey 10', // Use your font family name here
+            fontFamily: 'Jersey 10',
             fontSize: 30,
           ),
         ),
@@ -51,10 +52,10 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+              MaterialPageRoute(builder: (context) => TeacherHome()),
             );
           },
-          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+          child: Image.asset('assets/logo.png', height: 40, width: 40),
         ),
       ),
       body: Center(
@@ -64,17 +65,27 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
             FortuneWheel(
               selected: controller.stream,
               items: [
-                for (var student in widget.students) FortuneItem(child: Text(student)),
+                for (var student in widget.students)
+                  FortuneItem(
+                    child: Text(student),
+                    style: FortuneItemStyle(
+                      textStyle: TextStyle(
+                        color: Colors.white, // Text color
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      color: Colors.brown, // Wheel item background color
+                      borderColor: Colors.black, // Wheel item border colorBorder color
+                      borderWidth: 2, // Border width
+                    ),
+                  ),
               ],
               onAnimationEnd: () {
-                // Generate a random index and update the selectedStudent
                 final randomIndex = Random().nextInt(widget.students.length);
                 setState(() {
                   selectedStudent = widget.students[randomIndex];
                   showConfetti = true;
                 });
-
-                // Show confetti and selected student name
                 _confettiController.play();
                 showDialog(
                   context: context,
@@ -118,7 +129,6 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (widget.students.isNotEmpty) {
-            // Generate a random index and add it to the stream
             final randomIndex = Random().nextInt(widget.students.length);
             controller.add(randomIndex);
           }

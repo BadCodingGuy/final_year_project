@@ -113,12 +113,20 @@ class ClassCodeDisplay extends StatelessWidget {
           children: [
             Text(
               'Class Code:',
-              style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Set text color to white
+              ),
             ),
             SizedBox(height: 20),
             Text(
               classCode,
-              style: TextStyle(fontSize: 128, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 128,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Set text color to white
+              ),
               textAlign: TextAlign.center,
             ),
           ],
