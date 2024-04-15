@@ -63,6 +63,30 @@ class TeacherHome extends StatelessWidget {
     );
   }
 
+  // Inside TeacherHome class or a utility file
+  Future<String?> getClassCodeByStudentName(String studentName) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('classes')
+          .get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        List<String> students = List<String>.from(data['students'] ?? []);
+
+        if (students.contains(studentName)) {
+          return data['classCode']?.toString();
+        }
+      }
+
+      // If the student's name is not found in any class, return null
+      return null;
+    } catch (error) {
+      print('Error getting classCode by student name: $error');
+      return null;
+    }
+  }
+
 
 
   @override

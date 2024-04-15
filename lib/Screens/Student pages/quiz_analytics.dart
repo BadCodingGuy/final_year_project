@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pie_chart/pie_chart.dart';
-
 import 'example_quiz.dart';
+import 'package:final_year_project/Services/student_auth.dart'; // Import student_auth.dart
 
 class QuizResultScreen extends StatelessWidget {
   final List<Question> questions;
@@ -14,6 +14,24 @@ class QuizResultScreen extends StatelessWidget {
     required this.userResponses,
     required this.correctAnswers,
   });
+
+  Future<void> uploadQuizResultsToFirestore(int correctAnswers, int totalQuestions, List<bool?> userResponses) async {
+    String? studentName = (await StudentAuthService().getCurrentUserInfo())['studentName'];
+
+    if (studentName != null) {
+      try {
+        await FirebaseFirestore.instance.collection('quiz_results').doc(studentName).set({
+          'timestamp': DateTime.now(),
+          'correct_answers': correctAnswers,
+          'total_questions': totalQuestions,
+          'user_responses': userResponses.map((response) => response.toString()).toList(),
+        });
+        print('Quiz results uploaded successfully for $studentName');
+      } catch (error) {
+        print('Failed to upload quiz results: $error');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +50,7 @@ class QuizResultScreen extends StatelessWidget {
     ];
 
     // Upload quiz results to Firestore
-    FirebaseFirestore.instance.collection('quiz_results').add({
-      'timestamp': DateTime.now(),
-      'correct_answers': correctAnswers,
-      'total_questions': totalQuestions,
-      'user_responses': userResponses.map((response) => response.toString()).toList(),
-    });
+    uploadQuizResultsToFirestore(correctAnswers, totalQuestions, userResponses);
 
     return Scaffold(
       appBar: AppBar(
