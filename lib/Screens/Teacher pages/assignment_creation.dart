@@ -17,6 +17,7 @@ class FormativeAssignmentCreation extends StatefulWidget {
   @override
   _FormativeAssignmentCreationState createState() =>
       _FormativeAssignmentCreationState();
+
 }
 
 class _FormativeAssignmentCreationState
@@ -44,6 +45,15 @@ class _FormativeAssignmentCreationState
     setState(() {
       _audioPlayer = player;
     });
+  }
+
+  void _showCountdownTimerDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CountdownTimerDialog(durationInSeconds: _timeLimit.toInt() * 60); // Convert minutes to seconds
+      },
+    );
   }
 
 
@@ -85,6 +95,7 @@ class _FormativeAssignmentCreationState
         return;
       }
 
+
       String topic = examBoardOptions[_selectedExamBoard]![_selectedOption! - 1];
       String subtopic = subTopics[topic]![_selectedSubOption! - 1];
       double timeLimit = _timeLimit;
@@ -118,7 +129,7 @@ class _FormativeAssignmentCreationState
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: _methodOfAssessment == method ? color : null,
+        primary: _methodOfAssessment == method ? color : Colors.brown,
       ),
       child: Text(method),
     );
@@ -178,7 +189,7 @@ class _FormativeAssignmentCreationState
                             });
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: _activeExamBoard == examBoard ? Colors.green : null,
+                            primary: _activeExamBoard == examBoard ? Colors.blue : Colors.brown,
                           ),
                           child: Text(examBoard),
                         );
@@ -241,12 +252,14 @@ class _FormativeAssignmentCreationState
                     Wrap(
                       spacing: 10.0,
                       children: [
-                        _methodButton('Quiz', Colors.green),
-                        _methodButton('Exit ticket', Colors.green),
-                        _methodButton('Interactive', Colors.green),
-                        _methodButton('Unplugged', Colors.green),
+                        _methodButton('Quiz', Colors.blue),
+                        _methodButton('Exit ticket', Colors.blue),
+                        _methodButton('Interactive', Colors.blue),
+                        _methodButton('Unplugged', Colors.blue),
                       ],
+
                     ),
+
                     SizedBox(height: 20.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -283,7 +296,22 @@ class _FormativeAssignmentCreationState
                     ElevatedButton(
                       onPressed: () => _createAssignment(context),
                       child: Text('Create Assignment'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.brown,
+                      ),
                     ),
+                    SizedBox(height: 20.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        _showCountdownTimerDialog(context);
+                      },
+                      child: Text('Show Countdown Timer'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.brown,
+                      ),
+                    ),
+
+
                     SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () {
@@ -295,9 +323,10 @@ class _FormativeAssignmentCreationState
                         });
                         _playMusic();
                       },
-                      child: Text('Party', style: TextStyle(fontSize: 18.0)),
+
+                      child: Text('Party mode', style: TextStyle(fontSize: 18.0)),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.purple,
+                        primary: Colors.brown,
                       ),
                     ),
                     SizedBox(height: 10.0),
@@ -305,7 +334,7 @@ class _FormativeAssignmentCreationState
                       onPressed: _stopMusic,
                       child: Text('Stop Music', style: TextStyle(fontSize: 18.0)),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
+                        primary: Colors.brown,
                       ),
                     ),
                   ],
