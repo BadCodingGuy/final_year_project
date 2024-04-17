@@ -1,21 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
+import '../Home/student_home.dart';
 import '../Home/teacher_home.dart';
-import '../main.dart';
 
-class ClassConfidenceLevels extends StatelessWidget {
-  final String classCode;
+class TrafficLightsDisplay extends StatelessWidget {
+  final String className;
 
-  ClassConfidenceLevels({required this.classCode});
+  TrafficLightsDisplay({required this.className});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[200],
+      backgroundColor: Colors.brown[400],
       appBar: AppBar(
-        backgroundColor: Colors.brown[600],
-        title: Text('Class Confidence Levels',
+        title: Text(
+          'Traffic Lights',
           style: TextStyle(
             fontFamily: 'Jersey 10', // Use your font family name here
             fontSize: 30,
@@ -25,43 +26,44 @@ class ClassConfidenceLevels extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Teacher Home page
             );
           },
           child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
         ),
+        backgroundColor: Colors.brown[600],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('student_confidence')
-            .doc(classCode)
+            .doc(className)
             .snapshots(),
         builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
 
-          if (!snapshot.hasData || !snapshot.data!.exists) {
-            return Center(child: Text('No confidence levels found for this class.'));
+          if (!snapshot.hasData || snapshot.data == null) {
+            return Center(child: Text('No data available', style: TextStyle(color: Colors.white))); // White text
           }
 
-          var data = snapshot.data!.data() as Map<String, dynamic>;
-          List<dynamic>? studentNames = data['studentNames'];
-          List<dynamic>? confidences = data['confidences'];
+          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
 
-          if (studentNames == null || confidences == null || studentNames.isEmpty || confidences.isEmpty) {
-            return Center(child: Text('No confidence levels found for this class.'));
-          }
+          List<String> studentNames = List<String>.from(data['studentNames'] ?? []);
+          List<String> confidences = List<String>.from(data['confidences'] ?? []);
 
           return ListView.builder(
             itemCount: studentNames.length,
             itemBuilder: (context, index) {
-              String studentName = studentNames[index];
-              String confidence = confidences[index];
-
               return ListTile(
-                title: Text(studentName),
-                subtitle: Text('Confidence: $confidence'),
+                title: Text(
+                  'Student: ${studentNames[index]}',
+                  style: TextStyle(color: Colors.white),  // White text
+                ),
+                subtitle: Text(
+                  'Confidence: ${confidences[index]}',
+                  style: TextStyle(color: Colors.white),  // White text
+                ),
               );
             },
           );

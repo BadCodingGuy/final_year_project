@@ -215,11 +215,11 @@ class TeacherHome extends StatelessWidget {
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
-                        String classCode = data['classCode']; // Retrieve class code from data
+                        String className = data['className']; // Retrieve class name from data
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ClassConfidenceLevels(classCode: classCode),
+                            builder: (context) => TrafficLightsDisplay(className: className),
                           ),
                         );
                       },
@@ -228,6 +228,8 @@ class TeacherHome extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
                       ),
                     ),
+
+
                     SizedBox(width: 8), // Add some spacing between buttons
                     ElevatedButton(
                       onPressed: () {
