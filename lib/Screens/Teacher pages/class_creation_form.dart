@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../Services/teacher_auth.dart';
 import '../Home/teacher_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class TeacherClassCreationForm extends StatefulWidget {
   @override

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../Services/student_auth.dart';
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class TrafficLightsSelection extends StatefulWidget {
   final String classCode;

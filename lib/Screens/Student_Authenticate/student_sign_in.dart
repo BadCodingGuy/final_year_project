@@ -3,7 +3,7 @@ import '../../Services/student_auth.dart';
 import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class StudentSignIn extends StatefulWidget {
   final Function toggleView;

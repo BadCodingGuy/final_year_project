@@ -5,7 +5,7 @@ import '../../Services/teacher_auth.dart';
 import '../../Shared/constants.dart';
 import '../../Shared/loading.dart';
 import '../Home/role_selection.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class TeacherSignIn extends StatefulWidget {
   final Function toggleView;

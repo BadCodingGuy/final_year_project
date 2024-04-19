@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 
 class ExampleExitTicket extends StatelessWidget {

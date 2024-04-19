@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pie_chart/pie_chart.dart';
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'example_quiz.dart';
 import 'package:final_year_project/Services/student_auth.dart'; // Import student_auth.dart
 

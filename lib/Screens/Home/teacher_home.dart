@@ -9,7 +9,7 @@ import '../Teacher pages/class_creation_form.dart';
 import '../Teacher pages/assignment_creation.dart';
 import '../Teacher pages/random_name_picker.dart';
 import '../Teacher pages/results.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class RandomStudentSelection extends StatelessWidget {
   final List<String> students;

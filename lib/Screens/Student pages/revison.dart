@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class RevisionPage extends StatelessWidget {
   @override

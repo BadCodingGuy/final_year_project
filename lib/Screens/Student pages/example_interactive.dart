@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 
 class ExampleInteractive extends StatefulWidget {

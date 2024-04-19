@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'quiz_analytics.dart';
 
 class QuizExample extends StatefulWidget {

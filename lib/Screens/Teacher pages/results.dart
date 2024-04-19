@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 import '../Home/teacher_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class AnalyticsDisplay extends StatelessWidget {
   final String classCode;

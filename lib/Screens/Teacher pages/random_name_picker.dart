@@ -5,7 +5,7 @@ import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:confetti/confetti.dart';
 
 import '../Home/teacher_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class NamePickerWheel extends StatefulWidget {
   final List<String> students;

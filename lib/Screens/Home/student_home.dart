@@ -12,7 +12,7 @@ import '../Student pages/example_quiz.dart';
 import '../Student pages/example_unplugged.dart';
 import '../Student pages/revison.dart';
 import '../Student pages/traffic_lights.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class StudentHome extends StatefulWidget {
   @override

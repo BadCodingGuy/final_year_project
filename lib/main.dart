@@ -6,11 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../Models/teacher_user.dart';
-import '../Services/student_auth.dart';
-import '../Services/teacher_auth.dart';
-import 'Home/role_selection.dart';
-import 'Home/student_home.dart';
+import 'Models/teacher_user.dart';
+import 'Services/student_auth.dart';
+import 'Services/teacher_auth.dart';
+import 'Screens/Home/role_selection.dart';
+import 'Screens/Home/student_home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

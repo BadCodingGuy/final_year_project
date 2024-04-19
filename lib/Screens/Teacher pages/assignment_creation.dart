@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../Services/countdown_timer.dart';
 import '../../Services/topics_database.dart';
 import '../Home/teacher_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class FormativeAssignmentCreation extends StatefulWidget {
   final String classCode;

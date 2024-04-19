@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../Services/student_auth.dart';
 import '../Home/student_home.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class ChatPage extends StatefulWidget {
   final String chatId;
