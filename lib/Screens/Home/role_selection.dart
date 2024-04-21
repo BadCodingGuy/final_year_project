@@ -22,7 +22,9 @@ class _RoleSelectorState extends State<RoleSelector> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Role Selection'),
+        title: Text('Welcome to Byte Access - Please select your role'),
+        backgroundColor: Colors.brown[600],
+
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -36,6 +38,9 @@ class _RoleSelectorState extends State<RoleSelector> {
               );
             },
             child: Text('Teacher'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue[400]), // Change background color
+            ),
           ),
           ElevatedButton(
             onPressed: () {
@@ -46,6 +51,9 @@ class _RoleSelectorState extends State<RoleSelector> {
               );
             },
             child: Text('Student'),
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue[400]), // Change background color
+            ),
           ),
         ],
       ),

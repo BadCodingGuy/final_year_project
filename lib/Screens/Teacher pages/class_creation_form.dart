@@ -2,36 +2,38 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../Services/teacher_auth.dart';
+import '../Home/teacher_home.dart';
+import '../../main.dart';
 
 class TeacherClassCreationForm extends StatefulWidget {
   @override
-  _TeacherClassCreationFormState createState() => _TeacherClassCreationFormState();
+  _TeacherClassCreationFormState createState() =>
+      _TeacherClassCreationFormState();
 }
 
 class _TeacherClassCreationFormState extends State<TeacherClassCreationForm> {
   final TextEditingController _classNameController = TextEditingController();
-  final TextEditingController _classDescriptionController = TextEditingController();
+  final TextEditingController _classDescriptionController =
+  TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TeacherAuthService _auth = TeacherAuthService();
 
   void _createClass(BuildContext context) async {
     try {
       String teacherId = _auth.getCurrentUser()?.uid ?? '';
-      int classCode = DateTime.now().millisecondsSinceEpoch % 10000000;
+      int classCode =
+          DateTime.now().millisecondsSinceEpoch % 10000000;
       // Initialize an empty list of students
       List<String> students = [];
 
-      // Add the class document to Firestore with the students field initialized as an empty list
-      DocumentReference classRef = await _firestore.collection('classes').add({
+      // Add the class document to Firestore with the document name as the class ID
+      await _firestore.collection('classes').doc(classCode.toString()).set({
         'className': _classNameController.text,
         'classDescription': _classDescriptionController.text,
         'classCode': classCode.toString(),
         'teacherId': teacherId,
         'students': students, // Initialize the students field as an empty list
       });
-
-      // Get the ID of the newly created class document
-      String classId = classRef.id;
 
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -44,7 +46,6 @@ class _TeacherClassCreationFormState extends State<TeacherClassCreationForm> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -80,33 +81,57 @@ class _TeacherClassCreationFormState extends State<TeacherClassCreationForm> {
 }
 
 class ClassCodeDisplay extends StatelessWidget {
-final String classCode;
+  final String classCode;
 
-ClassCodeDisplay(this.classCode);
+  ClassCodeDisplay(this.classCode);
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('Class Code'),
-    ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Class Code:',
-            style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.brown[200],
+      appBar: AppBar(
+        backgroundColor: Colors.brown[600],
+        title: Text('Class Code',
+          style: TextStyle(
+            fontFamily: 'Jersey 10', // Use your font family name here
+            fontSize: 30,
           ),
-          SizedBox(height: 20),
-          Text(
-            classCode,
-            style: TextStyle(fontSize: 128, fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
-          ),
-        ],
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Sell page
+            );
+          },
+          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+        ),
       ),
-    ),
-  );
-}
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Class Code:',
+              style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Set text color to white
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              classCode,
+              style: TextStyle(
+                fontSize: 128,
+                fontWeight: FontWeight.bold,
+                color: Colors.white, // Set text color to white
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
