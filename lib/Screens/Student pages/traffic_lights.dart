@@ -89,7 +89,6 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
   }
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,18 +143,19 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RadioListTile<String>(
-                          title: Text('Green', style: TextStyle(fontSize: 24.0)),
-                          value: 'Green',
+                          title: Text('Red', style: TextStyle(fontSize: 24.0)),
+                          value: 'Red',
                           groupValue: _selectedColor,
                           onChanged: (value) {
                             print('Selected Color: $value');
                             setState(() => _selectedColor = value);
                           },
-                          activeColor: Colors.green,
+                          activeColor: Colors.red,
                         ),
                         SizedBox(height: 12),
                         RadioListTile<String>(
-                          title: Text('Yellow', style: TextStyle(fontSize: 24.0)),
+                          title: Text('Yellow', style: TextStyle(
+                              fontSize: 24.0)),
                           value: 'Yellow',
                           groupValue: _selectedColor,
                           onChanged: (value) {
@@ -166,14 +166,15 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
                         ),
                         SizedBox(height: 12),
                         RadioListTile<String>(
-                          title: Text('Red', style: TextStyle(fontSize: 24.0)),
-                          value: 'Red',
+                          title: Text('Green', style: TextStyle(
+                              fontSize: 24.0)),
+                          value: 'Green',
                           groupValue: _selectedColor,
                           onChanged: (value) {
                             print('Selected Color: $value');
                             setState(() => _selectedColor = value);
                           },
-                          activeColor: Colors.red,
+                          activeColor: Colors.green,
                         ),
                       ],
                     ),
