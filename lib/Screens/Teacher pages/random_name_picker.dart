@@ -37,6 +37,31 @@ class _NamePickerWheelState extends State<NamePickerWheel> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.students.length < 2) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Name Picker Wheel',
+            style: TextStyle(
+              fontFamily: 'Jersey 10',
+              fontSize: 30,
+            ),
+          ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TeacherHome()),
+              );
+            },
+            child: Image.asset('assets/logo.png', height: 40, width: 40),
+          ),
+        ),
+        body: Center(
+          child: Text('Add more students to spin the wheel.'),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
