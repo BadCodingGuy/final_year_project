@@ -195,13 +195,6 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
                       onPressed: () => _saveChoice(context),
                       child: Text('Save Choice'),
                       style: ElevatedButton.styleFrom(
-                        primary: _selectedColor != null
-                            ? _selectedColor == 'Green'
-                            ? Colors.green
-                            : _selectedColor == 'Yellow'
-                            ? Colors.yellow
-                            : Colors.red
-                            : Colors.grey,
                       ),
                     ),
                   ),
