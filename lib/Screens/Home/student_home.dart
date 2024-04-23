@@ -440,7 +440,7 @@ class _StudentHomeState extends State<StudentHome> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TrafficLightsSelection(classCode: 'j9'), // Use document ID
+                                  builder: (context) => TrafficLightsSelection(classCode: classId), // Use document ID
                                 ),
                               );
                             },
@@ -449,6 +449,7 @@ class _StudentHomeState extends State<StudentHome> {
                               backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
                             ),
                           ),
+
                         ],
                       ),
                       Divider(), // Divider between classes

@@ -45,6 +45,7 @@ dependencies:
   confetti: ^0.7.0
   web_browser: ^0.7.4
   url_launcher: ^6.0.0
+  youtube_player_flutter: ^8.1.1
 
 
 

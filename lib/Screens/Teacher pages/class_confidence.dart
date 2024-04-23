@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../Home/student_home.dart';
@@ -10,6 +9,19 @@ class TrafficLightsDisplay extends StatelessWidget {
 
   TrafficLightsDisplay({required this.className});
 
+  Color getColorForConfidence(String confidence) {
+    switch (confidence) {
+      case 'Red':
+        return Colors.red;
+      case 'Yellow':
+        return Colors.yellow;
+      case 'Green':
+        return Colors.green;
+      default:
+        return Colors.grey;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +30,7 @@ class TrafficLightsDisplay extends StatelessWidget {
         title: Text(
           'Traffic Lights',
           style: TextStyle(
-            fontFamily: 'Jersey 10', // Use your font family name here
+            fontFamily: 'Jersey 10',
             fontSize: 30,
           ),
         ),
@@ -26,10 +38,10 @@ class TrafficLightsDisplay extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => TeacherHome()),  // Navigate to Teacher Home page
+              MaterialPageRoute(builder: (context) => TeacherHome()),
             );
           },
-          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+          child: Image.asset('assets/logo.png', height: 40, width: 40),
         ),
         backgroundColor: Colors.brown[600],
       ),
@@ -44,13 +56,27 @@ class TrafficLightsDisplay extends StatelessWidget {
           }
 
           if (!snapshot.hasData || snapshot.data == null) {
-            return Center(child: Text('No data available', style: TextStyle(color: Colors.white))); // White text
+            return Center(
+              child: Text(
+                  'No data available', style: TextStyle(color: Colors.white)),
+            );
           }
 
-          Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+          Map<String, dynamic>? data = snapshot.data!.data() as Map<
+              String,
+              dynamic>?;
 
-          List<String> studentNames = List<String>.from(data['studentNames'] ?? []);
-          List<String> confidences = List<String>.from(data['confidences'] ?? []);
+          if (data == null) {
+            return Center(
+              child: Text(
+                  'No data available', style: TextStyle(color: Colors.white)),
+            );
+          }
+
+          List<String> studentNames = List<String>.from(
+              data['studentNames'] ?? []);
+          List<String> confidences = List<String>.from(
+              data['confidences'] ?? []);
 
           return ListView.builder(
             itemCount: studentNames.length,
@@ -58,11 +84,19 @@ class TrafficLightsDisplay extends StatelessWidget {
               return ListTile(
                 title: Text(
                   'Student: ${studentNames[index]}',
-                  style: TextStyle(color: Colors.white),  // White text
+                  style: TextStyle(color: Colors.white),
                 ),
-                subtitle: Text(
-                  'Confidence: ${confidences[index]}',
-                  style: TextStyle(color: Colors.white),  // White text
+                subtitle: Row(
+                  children: [
+                    Text(
+                      'Confidence: ',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Icon(
+                      Icons.circle,
+                      color: getColorForConfidence(confidences[index]),
+                    ),
+                  ],
                 ),
               );
             },

@@ -36,11 +36,10 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
         DocumentSnapshot snapshot = await docRef.get();
 
         if (snapshot.exists) {
-          List<dynamic>? studentNames = snapshot['studentNames'];
-          List<dynamic>? confidences = snapshot['confidences'];
+          List<dynamic>? studentNames = List.from(snapshot['studentNames'] ?? []);
+          List<dynamic>? confidences = List.from(snapshot['confidences'] ?? []);
 
           if (studentNames != null && confidences != null) {
-            // Find index of current student in studentNames array
             int index = studentNames.indexOf(studentName);
 
             if (index != -1) {
@@ -55,8 +54,17 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
                 SnackBar(content: Text('Choice saved successfully!')),
               );
             } else {
+              // If student not found, add the student and confidence
+              studentNames.add(studentName);
+              confidences.add(_selectedColor);
+
+              await docRef.update({
+                'studentNames': studentNames,
+                'confidences': confidences,
+              });
+
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Student not found!')),
+                SnackBar(content: Text('Student added and choice saved successfully!')),
               );
             }
           } else {
@@ -87,6 +95,7 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
       );
     }
   }
+
 
 
   @override
