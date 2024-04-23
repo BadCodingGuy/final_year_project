@@ -45,7 +45,8 @@ dependencies:
   confetti: ^0.7.0
   web_browser: ^0.7.4
   url_launcher: ^6.0.0
-  youtube_player_flutter: ^8.1.1
+  video_player: ^2.7.0
+  chewie: ^1.5.0
 
 
 
@@ -108,6 +109,9 @@ flutter:
     - assets/about_us/Telephone.jpg
     - assets/about_us/Workload.jpg
     - assets/traffic_lights.png
+    - assets/example_video.mp4
+    - assets/isaac.png
+    - assets/alt_video.mp4
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
