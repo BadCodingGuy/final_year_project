@@ -17,7 +17,7 @@ class TrafficLightsSelection extends StatefulWidget {
 class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
   String? _selectedColor;
 
-  void _saveChoice(BuildContext context) async {
+  Future<void> _saveChoice(BuildContext context) async {
     try {
       var userInfo = await StudentAuthService().getCurrentUserInfo();
       print('User Info: $userInfo'); // Debug print
@@ -32,25 +32,63 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
             .collection('student_confidence')
             .doc(widget.classCode);
 
-        // Use set with SetOptions to merge data or create new document
-        await docRef.set({
-          'studentNames': FieldValue.arrayUnion([studentName]),
-          'confidences': FieldValue.arrayUnion([_selectedColor]),
-        }, SetOptions(merge: true)); // Merge data with existing document or create new document
+        // Fetch current studentNames and confidences arrays
+        DocumentSnapshot snapshot = await docRef.get();
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Choice saved successfully!')),
-        );
+        if (snapshot.exists) {
+          List<dynamic>? studentNames = snapshot['studentNames'];
+          List<dynamic>? confidences = snapshot['confidences'];
+
+          if (studentNames != null && confidences != null) {
+            // Find index of current student in studentNames array
+            int index = studentNames.indexOf(studentName);
+
+            if (index != -1) {
+              // Update confidence value at the found index
+              confidences[index] = _selectedColor;
+
+              await docRef.update({
+                'confidences': confidences,
+              });
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Choice saved successfully!')),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Student not found!')),
+              );
+            }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error fetching data!')),
+            );
+          }
+        } else {
+          // If the document doesn't exist, create it with initial data
+          await docRef.set({
+            'studentNames': [studentName],
+            'confidences': [_selectedColor],
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Choice saved successfully!')),
+          );
+        }
       } else {
-        print('Student name or selected color is null'); // Debug print
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Please select a color!')),
+        );
       }
     } catch (e) {
-      print('Error fetching or updating user info: $e'); // Debug print
+      print('Error fetching or updating user info: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +96,10 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
-        title: Text('Traffic Lights',
+        title: Text(
+          'Traffic Lights',
           style: TextStyle(
-            fontFamily: 'Jersey 10', // Use your font family name here
+            fontFamily: 'Jersey 10',
             fontSize: 30,
           ),
         ),
@@ -68,48 +107,99 @@ class _TrafficLightsSelectionState extends State<TrafficLightsSelection> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => StudentHome()),  // Navigate to Sell page
+              MaterialPageRoute(builder: (context) => StudentHome()),
             );
           },
-          child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
+          child: Image.asset('assets/logo.png', height: 40, width: 40),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RadioListTile<String>(
-            title: Text('Green'),
-            value: 'Green',
-            groupValue: _selectedColor,
-            onChanged: (value) {
-              print('Selected Color: $value'); // Debug print
-              setState(() => _selectedColor = value);
-            },
-          ),
-          RadioListTile<String>(
-            title: Text('Yellow'),
-            value: 'Yellow',
-            groupValue: _selectedColor,
-            onChanged: (value) {
-              print('Selected Color: $value'); // Debug print
-              setState(() => _selectedColor = value);
-            },
-          ),
-          RadioListTile<String>(
-            title: Text('Red'),
-            value: 'Red',
-            groupValue: _selectedColor,
-            onChanged: (value) {
-              print('Selected Color: $value'); // Debug print
-              setState(() => _selectedColor = value);
-            },
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () => _saveChoice(context), // Save button
-            child: Text('Save Choice'),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            // Left Half: Traffic Lights Image
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Image.asset(
+                      'assets/traffic_lights.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Right Half: Radio Buttons and Save Button
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RadioListTile<String>(
+                          title: Text('Green', style: TextStyle(fontSize: 24.0)),
+                          value: 'Green',
+                          groupValue: _selectedColor,
+                          onChanged: (value) {
+                            print('Selected Color: $value');
+                            setState(() => _selectedColor = value);
+                          },
+                          activeColor: Colors.green,
+                        ),
+                        SizedBox(height: 12),
+                        RadioListTile<String>(
+                          title: Text('Yellow', style: TextStyle(fontSize: 24.0)),
+                          value: 'Yellow',
+                          groupValue: _selectedColor,
+                          onChanged: (value) {
+                            print('Selected Color: $value');
+                            setState(() => _selectedColor = value);
+                          },
+                          activeColor: Colors.yellow,
+                        ),
+                        SizedBox(height: 12),
+                        RadioListTile<String>(
+                          title: Text('Red', style: TextStyle(fontSize: 24.0)),
+                          value: 'Red',
+                          groupValue: _selectedColor,
+                          onChanged: (value) {
+                            print('Selected Color: $value');
+                            setState(() => _selectedColor = value);
+                          },
+                          activeColor: Colors.red,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => _saveChoice(context),
+                      child: Text('Save Choice'),
+                      style: ElevatedButton.styleFrom(
+                        primary: _selectedColor != null
+                            ? _selectedColor == 'Green'
+                            ? Colors.green
+                            : _selectedColor == 'Yellow'
+                            ? Colors.yellow
+                            : Colors.red
+                            : Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

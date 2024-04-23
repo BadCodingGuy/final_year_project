@@ -11,6 +11,7 @@ import 'Services/student_auth.dart';
 import 'Services/teacher_auth.dart';
 import 'Screens/Home/role_selection.dart';
 import 'Screens/Home/student_home.dart';
+import 'Shared/about_us.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,6 +87,13 @@ class _RoleSelectorState extends State<Sell> {
     });
   }
 
+  void navigateToAboutUs() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AboutUsPage()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +108,18 @@ class _RoleSelectorState extends State<Sell> {
           ),
         ),
         leading: Image.asset('assets/logo.png', height: 40, width: 40),
+        actions: [
+          TextButton(
+            child: Text(
+              'About',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16.0,
+              ),
+            ),
+            onPressed: navigateToAboutUs,
+          ),
+        ],
       ),
 
       body: Row(
@@ -123,7 +143,7 @@ class _RoleSelectorState extends State<Sell> {
                     color: Colors.black,
                   ),
                   image: DecorationImage(
-                    image: AssetImage('assets/teacher.png'),
+                    image: AssetImage('assets/teacher1.jpg'),
                     fit: BoxFit.cover,
                   ),
                 ),

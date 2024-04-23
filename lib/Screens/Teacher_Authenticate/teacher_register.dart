@@ -27,6 +27,7 @@ class _RegisterState extends State<TeacherRegister> {
     return loading
         ? Loading()
         : Scaffold(
+      backgroundColor: Colors.brown[400],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
         elevation: 0.0,
@@ -57,12 +58,6 @@ class _RegisterState extends State<TeacherRegister> {
       ),
 
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.jpg"), // Replace with your image path
-            fit: BoxFit.cover,
-          ),
-        ),
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
           child: Form(
@@ -99,7 +94,7 @@ class _RegisterState extends State<TeacherRegister> {
                 TextButton(
                   child: Text('Register'),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
                     foregroundColor: MaterialStateProperty.all(Colors.white),
                   ),
                   onPressed: () async {

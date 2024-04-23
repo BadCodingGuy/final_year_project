@@ -27,6 +27,7 @@ class _SignInState extends State<StudentSignIn> {
     return loading
         ? Loading()
         : Scaffold(
+      backgroundColor: Colors.brown[400],
       appBar: AppBar(
         backgroundColor: Colors.brown[600],
         elevation: 0.0,
@@ -58,12 +59,7 @@ class _SignInState extends State<StudentSignIn> {
 
 
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/background.jpg"), // Replace with your image path
-            fit: BoxFit.cover,
-          ),
-        ),
+
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
           child: Form(
@@ -92,7 +88,7 @@ class _SignInState extends State<StudentSignIn> {
                 ElevatedButton(
                   child: Text('Sign in'),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    backgroundColor: MaterialStateProperty.all(Colors.lightBlue),
                     textStyle:
                     MaterialStateProperty.all(TextStyle(color: Colors.white)),
                   ),
