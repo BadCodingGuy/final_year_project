@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../Services/teacher_auth.dart';
 import '../Student pages/traffic_lights.dart';
 import '../Teacher pages/class_confidence.dart';
@@ -55,47 +55,38 @@ class RandomStudentSelection extends StatelessWidget {
 class TeacherHome extends StatelessWidget {
   final TeacherAuthService _auth = TeacherAuthService();
 
-  void _openClassCreationForm(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return TeacherClassCreationForm();
-      },
-    );
-  }
-
-  // Inside TeacherHome class or a utility file
-  Future<String?> getClassCodeByStudentName(String studentName) async {
+  // Function to print current user details
+  void printCurrentUserDetails() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('classes')
-          .get();
-
-      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        List<String> students = List<String>.from(data['students'] ?? []);
-
-        if (students.contains(studentName)) {
-          return data['classCode']?.toString();
+      User? currentUser = await _auth.getCurrentUser();
+      if (currentUser != null) {
+        DocumentSnapshot teacherDoc = await FirebaseFirestore.instance.collection('Teachers').doc(currentUser.uid).get();
+        if (teacherDoc.exists) {
+          String teacherName = teacherDoc['name'];
+          print('User ID: ${currentUser.uid}');
+          print('Email: ${currentUser.email}');
+          print('Teacher Name: $teacherName');
+        } else {
+          print('No teacher document found for user ID: ${currentUser.uid}');
         }
+      } else {
+        print('No user is currently logged in.');
       }
-
-      // If the student's name is not found in any class, return null
-      return null;
     } catch (error) {
-      print('Error getting classCode by student name: $error');
-      return null;
+      print('Error printing current user details: $error');
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    // Call the function to print current user details
+    printCurrentUserDetails();
+
     return Scaffold(
       backgroundColor: Colors.brown[200],
       appBar: AppBar(
-        title: Text('Teacher Home Page',
+        title: Text(
+          'Teacher Home Page',
           style: TextStyle(
             fontFamily: 'Jersey 10', // Use your font family name here
             fontSize: 30,
@@ -105,7 +96,7 @@ class TeacherHome extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Sell()),  // Navigate to Sell page
+              MaterialPageRoute(builder: (context) => Sell()), // Navigate to Sell page
             );
           },
           child: Image.asset('assets/logo.png', height: 40, width: 40), // Replace with your logo path
@@ -130,171 +121,217 @@ class TeacherHome extends StatelessWidget {
           ),
         ],
       ),
-
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('classes').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          }
-          if (snapshot.hasData && snapshot.data!.docs.isEmpty) {
-            return Center(
-              child: Text('No classes found.'),
-            );
-          }
-          return ListView.builder(
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (BuildContext context, int index) {
-              DocumentSnapshot document = snapshot.data!.docs[index];
-              Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-              String className = data['className']; // Retrieve class name from data
-              List<String> students = List<String>.from(data['students'] ?? []); // Retrieve students from data
-
-              return ListTile(
-                title: Text(className),
-                subtitle: Text(data['classDescription']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        String classCode = data['classCode']; // Retrieve class code from data
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FormativeAssignmentCreation(classCode: classCode),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            color: Colors.brown[200], // Set background color to brown[200]
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: FutureBuilder<User?>(
+              future: Future.value(_auth.getCurrentUser()),
+              builder: (context, AsyncSnapshot<User?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                if (snapshot.hasData && snapshot.data != null) {
+                  return FutureBuilder<DocumentSnapshot>(
+                    future: FirebaseFirestore.instance.collection('Teachers').doc(snapshot.data!.uid).get(),
+                    builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      }
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return Text(
+                          'Welcome, ${snapshot.data!['name']} 👋', // Added waving hand emoji
+                          style: TextStyle(
+                            fontSize: 20,
                           ),
                         );
-                      },
-                      child: Text('Create Formative Assessment'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
-                      ),
-                    ),
-                    SizedBox(width: 8), // Add some spacing between buttons
-                    ElevatedButton(
-                      onPressed: () {
-                        String classCode = data['classCode']; // Retrieve class code from data
-                        print(classCode);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AnalyticsDisplay(classCode: classCode),
-                          ),
-                        );
-                      },
-                      child: Text('View Analytics'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
-                      ),
-                    ),
+                      }
+                      return Text('Unknown');
+                    },
+                  );
+                }
+                return Text('Unknown');
+              },
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance.collection('classes').snapshots(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text('Error: ${snapshot.error}'),
+                  );
+                }
+                if (snapshot.hasData && snapshot.data!.docs.isEmpty) {
+                  return Center(
+                    child: Text('No classes found.'),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    DocumentSnapshot document = snapshot.data!.docs[index];
+                    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                    String className = data['className']; // Retrieve class name from data
+                    List<String> students = List<String>.from(data['students'] ?? []); // Retrieve students from data
 
-                    SizedBox(width: 8), // Add some spacing between buttons
-                    ElevatedButton(
-                      onPressed: () {
-                        String classCode = data['classCode']; // Retrieve class code from data
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ClassCodeDisplay(classCode),
-                          ),
-                        );
-                      },
-                      child: Text('Show Class Code'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
-                      ),
-                    ),
-                    SizedBox(width: 8), // Add some spacing between buttons
-                    ElevatedButton(
-                      onPressed: () {
-                        String className = data['className']; // Retrieve class name from data
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TrafficLightsDisplay(className: className),
-                          ),
-                        );
-                      },
-                      child: Text('Traffic Lights'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
-                      ),
-                    ),
-
-
-                    SizedBox(width: 8), // Add some spacing between buttons
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NamePickerWheel(students: students),
-                          ),
-                        );
-                      },
-                      child: Text('Choose Student'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
-                      ),
-                    ),
-                    SizedBox(width: 8), // Add some spacing between buttons
-                    ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text('Delete Class'),
-                              content: Text('Are you sure you want to delete $className?'),
-                              actions: [
-                                TextButton(
-                                  child: Text('Cancel'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                    return ListTile(
+                      title: Text(className),
+                      subtitle: Text(data['classDescription']),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              String classCode = data['classCode']; // Retrieve class code from data
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FormativeAssignmentCreation(classCode: classCode),
                                 ),
-                                TextButton(
-                                  child: Text('Delete'),
-                                  onPressed: () async {
-                                    // Delete the class from Firestore
-                                    await FirebaseFirestore.instance.collection('classes').doc(document.id).delete();
-                                    Navigator.pop(context);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('$className deleted successfully!')),
-                                    );
-                                  },
+                              );
+                            },
+                            child: Text('Create Formative Assessment'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
+                          ),
+                          SizedBox(width: 8), // Add some spacing between buttons
+                          ElevatedButton(
+                            onPressed: () {
+                              String classCode = data['classCode']; // Retrieve class code from data
+                              print(classCode);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => AnalyticsDisplay(classCode: classCode),
                                 ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: Text('Delete'),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                              );
+                            },
+                            child: Text('View Analytics'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
+                          ),
+
+                          SizedBox(width: 8), // Add some spacing between buttons
+                          ElevatedButton(
+                            onPressed: () {
+                              String classCode = data['classCode']; // Retrieve class code from data
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ClassCodeDisplay(classCode),
+                                ),
+                              );
+                            },
+                            child: Text('Show Class Code'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
+                          ),
+                          SizedBox(width: 8), // Add some spacing between buttons
+                          ElevatedButton(
+                            onPressed: () {
+                              String className = data['className']; // Retrieve class name from data
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TrafficLightsDisplay(className: className),
+                                ),
+                              );
+                            },
+                            child: Text('Traffic Lights'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
+                          ),
+
+
+                          SizedBox(width: 8), // Add some spacing between buttons
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NamePickerWheel(students: students),
+                                ),
+                              );
+                            },
+                            child: Text('Choose Student'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
+                          ),
+                          SizedBox(width: 8), // Add some spacing between buttons
+                          ElevatedButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Delete Class'),
+                                    content: Text('Are you sure you want to delete $className?'),
+                                    actions: [
+                                      TextButton(
+                                        child: Text('Cancel'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text('Delete'),
+                                        onPressed: () async {
+                                          // Delete the class from Firestore
+                                          await FirebaseFirestore.instance.collection('classes').doc(document.id).delete();
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('$className deleted successfully!')),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Text('Delete'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.brown[400]), // Change background color to brown
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _openClassCreationForm(context),
         child: Icon(Icons.add),
         backgroundColor: Colors.brown[600],
-
       ),
+    );
+  }
+
+  void _openClassCreationForm(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return TeacherClassCreationForm();
+      },
     );
   }
 }
